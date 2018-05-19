@@ -1,0 +1,426 @@
+FORMAT: 1A
+HOST: http://localhost:8080/api/
+
+# BeaverCoffee
+Specification of the available routes of the BeaverCoffe data store.
+
+# Group Orders
+## Order [/orders/{id}]
++ Parameters
+ - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
+
+### View Order [GET]
+Req 12, Fetches the data for order with the given id.
++ Request
+    + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+
++ Response 200 (application/json)
+
+    + Attributes(Order)
+
+### Update Order [PUT]
+Req 12, Updates for orders not in process are allowed
++ Request (application/json)
+  + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+
+    + Attributes(Order)
+
++ Response 204 
+
+### Remove Order [DELETE]
+Req 3, Removal of orders not in process are allowed
++ Request
+    + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+
++ Response 204 
+
+## Orders [/orders{?employeeID,status}]
+### Create Order [POST]
+Req 12, Creates a new order
++ Request (application/json)
+  + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+
+    + Attributes(Order)
+
++ Response 201
+
+### View Orders [GET]
+Req 12, Fetch current orders not i process by default, may be queried by employee id and or status
++ Parameters
+    - status: pending, inprocess, finished (enum, optional) - one of pending, inprocess, finished
+    - employeeID: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, optional)
+
++ Request
+    + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+                 
++ Response 200 (application/json)
+
+    + Attributes(array[Order])
+
+# Group Products
+## Products [/products/{countrycode}]
+### View Products [GET]
++ Paramters 
+    - countrycode: SE (string) - Localization setting
+Req 2, should be fetched at login 
++ Response 200 (application/json)
+
+    + Attributes(array[Product])
+
+# Group Employees
+## Employee [/employees/{id}]
++ Parameters
+ - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
+
+### View Employee [GET]
+Req 9
++ Request
+    + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+                 
++ Response 200 (application/json)
+
+    + Attributes(Employee)
+
+### Update Employee [PUT]
+Req 9
++ Request (application/json)
+
+    + Attributes(Employee)
+
++ Response 204
+
+## Employee Reports [GET /employees/{id}/reports{?timeperiod}]
++ Parameters
+    - timeperiod: `2018-04-27T20:06+02:00-2018-04-27T20:06+02:00` (string, optional) - From to time period
+    - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
+
++ Request
+    + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+                 
++ Response 200 (application/json)
+
+    + Attributes
+        - report : abmalmba
+
+
+## Employees [/employees]
+### Create Employee [POST]
+Req 12
++ Request (application/json)
+    + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+
+    + Attributes(BaseEmployee)
+
++ Response 201
+
+### View Employees [GET]
+Req 12
++ Request
+    + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+                 
++ Response 200 (application/json)
+
+    + Attributes(array[Employee])
+
+
+## Employees [GET /employees/reports{?timeperiod}]
++ Parameters
+    - timeperiod: `2018-04-27T20:06+02:00-2018-04-27T20:06+02:00` (string, optional) - From to time period
+
++ Request
+    + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+                 
++ Response 200 (application/json)
+
+    + Attributes
+        - report: katastrof
+
+# Group Customers
+## Customers [/customers]
+### Create Customer [POST]
+Req 12, Branch manager and pleb employee Used when adding club member
++ Request (application/json)
+    + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+
+    + Attributes(Customer)
+
++ Response 201
+
+### View Customers [GET]
+Req 12
++ Request
+    + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+                 
++ Response 200 (application/json)
+
+    + Attributes(array[Customer])
+
+## Customer Reports [GET /customers/reports{?postalcode,occupation,timeperiod}]
++ Parameters
+    - postalcode: 212 13 (string, optional)
+    - occupation: youtube influencer (string, optional)
+    - timeperiod: `2018-04-27T20:06+02:00-2018-04-27T20:06+02:00` (string, optional) - From to time period
+
++ Request
+    + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+                 
++ Response 200 (application/json)
+
+    + Attributes
+
+# Group Stores
+## Stores [/stores]
+### View Stores [GET]
+Req 12
++ Request
+    + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+                 
++ Response 200 (application/json)
+
+    + Attributes(array[Store])
+
+## Store [/stores/{id}]
++ Parameters
+ - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
+
+### View Store [GET]
+Req 12
++ Request
+    + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+                 
++ Response 200 (application/json)
+
+    + Attributes(Store)
+
+    
+### Update Store [PUT]
+Req 12
++ Request (application/json)
+    + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+
+    + Attributes
+        - orderID: `12345678-3715-4f91-8b4f-c4f3342f5a83` (required)
+        - products (required)
+          - include StockExample 
+            
++ Response 204
+
+## Store stock [GET /stores/{id}/stock]
+Returns the current stock for a  store
++ Parameters
+ - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
+ 
+
++ Request
+    + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+
++ Response 200 (application/json)
+
+    + Attributes(array[StockExample])
+
+## Store Report [GET /stores/{id}/reports{?timeperiod,productIDs}]
++ Parameters
+    - timeperiod: `2018-04-27T20:06+02:00-2018-04-27T20:06+02:00` (string, optional) - From to time period
+    - productIDs: `12345678-3715-4f91-8b4f-c4f3342f5a83`, `12345678-3715-4f91-8b4f-c4f3342f5a83` (array, optional)
+    - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
+
++ Request
+    + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+
++ Response 200 (application/json)
+
+    + Attributes
+        - store data: blalba
+
+## Stock Reports [GET /stores/{id}/stock/reports{?timeperiod,productIDs}]
++ Parameters
+    - timeperiod: `2018-04-27T20:06+02:00-2018-04-27T20:06+02:00` (string, optional) - From to time period
+    - productIDs: `12345678-3715-4f91-8b4f-c4f3342f5a83`, `12345678-3715-4f91-8b4f-c4f3342f5a83` (array, optional)
+    - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
+
++ Request
+    + Headers
+
+                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+
++ Response 200 (application/json)
+
+    + Attributes
+        - store data: blalba
+
+# Group Authorization
+Req 12, Returns an array of roles and a token for auth in other routes
+## Authenticate [POST /authorization] 
++ Request (applcation/json)
+
+    + Attributes
+        - name: ABC123 (string, required)
+        - password: 029352jojoj35123  (string, required) - Hashed password
+    
++ Response 200 (application/json)
+
+    + Attributes(Session)
+
+# Data Structures
+
+## Authentication
+ - name: ABC123 (string, required)
+ - password: 029352jojoj35123  (string, required) - Hashed password
+
+## Session
+ - include UUID
+ - roles: Cashier, Store Manager, Branch Manager, Corporate Sales (array)
+
+## Adress (object)
+ - street: Bogdan Street 10 (string, required)
+ - zip: 911 1337 (string, required)
+ - city: Coimbra (string, required)
+ - country 
+  - include Country
+
+## Mobilephone
+ - mobile: `+4612738592`, `+4644434593` (array)
+ 
+## Homephone
+ - home: 0401315023, 040150532 (array)
+    
+## PhoneNumbers (object)
+ - include Mobilephone
+ - include Homephone
+
+## Person (object)
+ - first: Jens (string, required) - Given name
+ - last: Conny (string, required) - Surname
+ - SSN: 098745028374 (string, required) - Social security number
+ - homeAdress (array[Adress])
+
+## ClubMember
+ - include UUID
+ - include Person
+ - ocupation: Youtube Influencer (string)
+ - validCountry
+  - include Country
+
+## Customer
+ - include UUID
+ - clubmember
+  - include ClubMember
+   
+## EmploymentHistory
+ - postion: Beanmaker (string)
+ - start
+  - include Date
+ - end 
+  - include Date
+ - type: Full (string) - Employment Type
+
+## BaseEmployee
+- details (object)
+    - include Person
+    - phonenumbers(PhoneNumbers)
+ - employmentHistory (array[EmploymentHistory])
+
+## Employee
+ - include UUID
+ - include BaseEmployee
+ - Comments (array[Comment])
+ 
+
+## Comment (object)
+ - include UUID
+ - include Date
+ - employer: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required) - UUID v4
+ - comment: You're my favorite guy, pal! (string, required) - Maximum length 300 characters
+
+## Store
+ - include UUID
+ - branchID: `99999998-3715-4f91-8b4f-c4f3342f5a83` (string, required) - UUID v4
+ - adress
+  - include Adress
+ - orders: `12345678-3715-4f91-8b4f-c4f3342f5a83`, `12345678-3715-4f91-8b4f-c4f3342f5a89`  (array)
+ - stock (array[StockExample]) 
+        
+## StockExample
+ - `78970117-3715-4f91-8b4f-c4f3342f5a83`: 20 - ID of product is the key 
+
+## Branch
+  - include UUID
+  - Stores (array[Store])
+
+## Country
+ - code: SE
+ - name: Sverige
+ 
+## BaseProduct
+  - name: Brewed Coffe (string, required)
+  - type: Liquid 
+  - quantity: 1 (string)
+  - price: 100 (string, required) - price in öre
+ 
+## Product (object)
+  - include UUID
+  - include BaseProduct
+
+## Order (object)
+ - include UUID
+ - include TimeStamp
+ - discount: `%10` (optional) - Req 4
+ - customer
+  - include Customer
+ - include EmployeeUUID
+ - storeID: `69999998-3715-4f91-8b4f-c4f3342f5a83` (string, required) - UUID v4
+ - products (array[productUUID])
+ - status: pending, inprocess, finished (enum, required) - one of pending, inprocess, finished
+
+## TimeStamp
+ - timestamp: 1526633863 (number) - Unix epoch timestamp
+
+## UUID
+ - id: `78970117-3715-4f91-8b4f-c4f3342f5a83` (string, required) - UUID v4
+
+## EmployeeUUID
+ - EmployeeID: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required) - UUID v4
+
+## productUUID
+    - productID: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required) - UUID v4
+
+## Date
+ - date: `2018-04-27T20:06+02:00` (string, required) - ISO something date format
+
+
