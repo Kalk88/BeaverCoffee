@@ -1,6 +1,9 @@
 # BeaverCoffee
 School project for non-relational databases course.
 
+## API documentation
+Available on Apiary
+[Docs](https://beavercoffe.docs.apiary.io/#)
 
 ## MongoDB container on Docker instructions
 1. Install docker [quickstart](https://docs.docker.com/v1.11/engine/quickstart/)
