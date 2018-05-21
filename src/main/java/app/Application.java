@@ -1,4 +1,7 @@
 package app;
+
+import app.order.OrderController;
+import app.order.OrderDao;
 import app.product.Product;
 import app.product.ProductController;
 import app.product.ProductDao;
@@ -21,13 +24,18 @@ public class Application {
         //Morphia setup
         Morphia morphia = new Morphia();
         final MongoClient client = new MongoClient();
-        morphia.mapPackage("com.babayaga.beavercoffee.product"); // Can be called several times with diffrent packages if needed
+        morphia.mapPackage("com.babayaga.beavercoffee.product");
+        morphia.mapPackage("com.babayaga.beavercoffee.order");
+        morphia.mapPackage("com.babayaga.beavercoffee.customer");
+        morphia.mapPackage("com.babayaga.beavercoffee.employee");
         Datastore dataStore = morphia.createDatastore(client, "beaverDB");
 
         // init Controllers
         ProductController productController = new ProductController(new ProductDao(dataStore));
+        OrderController orderController = new OrderController(new OrderDao(dataStore));
 
         // ROUTES
+        // Products
         get("api/products", (req, res) -> {
             try {
                 res.header("content-type", "application/json");
@@ -35,6 +43,17 @@ public class Application {
             } catch (Exception e) {
                 res.status(400);
                 return "Error retrieving products";
+            }
+        });
+
+        // Orders
+        get("api/orders", (req, res) -> {
+            try {
+                res.header("content-type", "application/json");
+                return new Gson().toJson(orderController.getAllOrders());
+            } catch (Exception e) {
+                res.status(400);
+                return "Error retrieving orders";
             }
         });
     }
