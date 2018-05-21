@@ -38,7 +38,7 @@ public class ProductTest {
 
         // Load db with products
         // Remember to start your local mongo instance =)))
-        try (Stream<String> stream = Files.lines(Paths.get("/home/kalk/IdeaProjects/beavercoffee/src/test/java/test_data/products_eng.txt"))) {
+        try (Stream<String> stream = Files.lines(Paths.get("src/test/java/test_data/products_eng.txt"))) {
             MongoCollection<Document> collection = client.getDatabase("beaverDB").getCollection("products");
             stream.map(Document::parse)
                     .forEach(collection::insertOne);
