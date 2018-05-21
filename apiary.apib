@@ -53,7 +53,7 @@ Req 12, Creates a new order
 + Response 201
 
 ### View Orders [GET]
-Req 12, Fetch current orders not in process by default, may be queried by employee id and or status
+Req 12, Fetch current orders not i process by default, may be queried by employee id and or status
 + Parameters
     - status: pending, inprocess, finished (enum, optional) - one of pending, inprocess, finished
     - employeeID: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, optional)
@@ -68,11 +68,9 @@ Req 12, Fetch current orders not in process by default, may be queried by employ
     + Attributes(array[Order])
 
 # Group Products
-## Products [/products/{countrycode}]
+## Products [/products]
 ### View Products [GET]
-+ Paramters 
-    - countrycode: SE (string) - Localization setting
-Req 2, should be fetched at login 
+Returns a products for sale.
 + Response 200 (application/json)
 
     + Attributes(array[Product])
@@ -385,13 +383,15 @@ Req 12, Returns an array of roles and a token for auth in other routes
 
 ## Country
  - code: SE
+ - currency: SEK
+ - language: SV
  - name: Sverige
  
 ## BaseProduct
-  - name: Brewed Coffe (string, required)
-  - type: Liquid 
+  - name: EN=Brewed Coffe, SV=Bryggkaffe (array, required)
+  - type: Brewed 
   - quantity: 1 (string)
-  - price: 100 (string, required) - price in öre
+  - price: US=100, SE=10 (array, required) 
  
 ## Product (object)
   - include UUID
@@ -422,5 +422,3 @@ Req 12, Returns an array of roles and a token for auth in other routes
 
 ## Date
  - date: `2018-04-27T20:06+02:00` (string, required) - ISO something date format
-
-
