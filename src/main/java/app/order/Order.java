@@ -22,12 +22,12 @@ public class Order {
     private String employeeID;
     private String storeID;
     @Embedded
-    private List<Product> products;
+    private List<OrderProduct> products;
     private Status status;
 
     @Override
     public String toString() {
         return id + " " + timestamp + " " + discount + " " + customer.toString() + " " + employeeID + " " + " " + storeID + " "
-                + " " + products + " " + status;
+                + " " + products.toString() + " " + status;
     }
 }

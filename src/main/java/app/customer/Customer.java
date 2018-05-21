@@ -14,7 +14,7 @@ public class Customer {
     @Embedded
     private ClubMember clubmember;
 
-    private Customer() {}
+    public Customer() {}
 
     @Override
     public String toString() {

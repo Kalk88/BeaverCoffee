@@ -9,7 +9,7 @@ public class Country {
     private String language;
     private String name;
 
-    Country() {}
+    public Country() {}
 
     @Override
     public String toString() {

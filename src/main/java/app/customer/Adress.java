@@ -9,7 +9,7 @@ public class Adress {
     private String city;
     private Country country;
 
-    Adress() {}
+    public Adress() {}
 
     @Override
     public String toString() {

@@ -15,7 +15,7 @@ public class ClubMember {
     private String occupation;
     private Country validCountry;
 
-    ClubMember() {}
+    public ClubMember() {}
 
     @Override
     public String toString() {
