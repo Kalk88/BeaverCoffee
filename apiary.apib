@@ -405,7 +405,7 @@ Req 12, Returns an array of roles and a token for auth in other routes
   - include Customer
  - include EmployeeUUID
  - storeID: `69999998-3715-4f91-8b4f-c4f3342f5a83` (string, required) - UUID v4
- - products (array[productUUID])
+ - products (array[OrderdProducts])
  - status: pending, inprocess, finished (enum, required) - one of pending, inprocess, finished
 
 ## TimeStamp
@@ -417,8 +417,9 @@ Req 12, Returns an array of roles and a token for auth in other routes
 ## EmployeeUUID
  - EmployeeID: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required) - UUID v4
 
-## productUUID
-    - productID: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required) - UUID v4
+## OrderdProducts
+ - quantity: 10 (string, required) 
+ - productID: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required) - UUID v4
 
 ## Date
  - date: `2018-04-27T20:06+02:00` (string, required) - ISO something date format
