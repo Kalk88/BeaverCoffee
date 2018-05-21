@@ -18,7 +18,7 @@ public class Order {
     private int timestamp;
     private String discount;
     @Embedded
-    private Customer customer;
+    private OrderCustomer customer;
     private String employeeID;
     private String storeID;
     @Embedded

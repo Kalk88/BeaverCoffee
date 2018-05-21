@@ -24,11 +24,10 @@ public class Application {
         //Morphia setup
         Morphia morphia = new Morphia();
         final MongoClient client = new MongoClient();
-        morphia.mapPackage("com.babayaga.beavercoffee.product"); // Can be called several times with diffrent packages if needed
-        morphia.mapPackage("com.babayaga.beavercoffee.order"); // Can be called several times with diffrent packages if needed
-        morphia.mapPackage("com.babayaga.beavercoffee.customer"); // Can be called several times with diffrent packages if needed
-        morphia.mapPackage("com.babayaga.beavercoffee.employee"); // Can be called several times with diffrent packages if needed
-        morphia.mapPackage("com.babayaga.beavercoffee.store"); // Can be called several times with diffrent packages if needed
+        morphia.mapPackage("com.babayaga.beavercoffee.product");
+        morphia.mapPackage("com.babayaga.beavercoffee.order");
+        morphia.mapPackage("com.babayaga.beavercoffee.customer");
+        morphia.mapPackage("com.babayaga.beavercoffee.employee");
         Datastore dataStore = morphia.createDatastore(client, "beaverDB");
 
         // init Controllers
