@@ -1,5 +1,6 @@
-package app.customer;
+package app.order;
 
+import app.customer.ClubMember;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 
@@ -7,14 +8,14 @@ import org.mongodb.morphia.annotations.*;
 @Indexes(
         @Index(value = "id", fields = @Field("id"))
 )
-public class Customer {
+public class OrderCustomer {
     @Id
     private ObjectId _id;
     private String id;
     @Embedded
     private ClubMember clubmember;
 
-    public Customer() {}
+    public OrderCustomer() {}
 
     @Override
     public String toString() {
