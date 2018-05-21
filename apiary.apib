@@ -29,7 +29,7 @@ Req 12, Updates for orders not in process are allowed
 
     + Attributes(Order)
 
-+ Response 204 
++ Response 204
 
 ### Remove Order [DELETE]
 Req 3, Removal of orders not in process are allowed
@@ -38,7 +38,7 @@ Req 3, Removal of orders not in process are allowed
 
                  Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
 
-+ Response 204 
++ Response 204
 
 ## Orders [/orders{?employeeID,status}]
 ### Create Order [POST]
@@ -62,7 +62,7 @@ Req 12, Fetch current orders not i process by default, may be queried by employe
     + Headers
 
                  Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
-                 
+
 + Response 200 (application/json)
 
     + Attributes(array[Order])
@@ -70,7 +70,7 @@ Req 12, Fetch current orders not i process by default, may be queried by employe
 # Group Products
 ## Products [/products]
 ### View Products [GET]
-Returns a products for sale.
+Returns all products for sale.
 + Response 200 (application/json)
 
     + Attributes(array[Product])
@@ -86,7 +86,7 @@ Req 9
     + Headers
 
                  Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
-                 
+
 + Response 200 (application/json)
 
     + Attributes(Employee)
@@ -108,7 +108,7 @@ Req 9
     + Headers
 
                  Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
-                 
+
 + Response 200 (application/json)
 
     + Attributes
@@ -133,7 +133,7 @@ Req 12
     + Headers
 
                  Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
-                 
+
 + Response 200 (application/json)
 
     + Attributes(array[Employee])
@@ -147,7 +147,7 @@ Req 12
     + Headers
 
                  Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
-                 
+
 + Response 200 (application/json)
 
     + Attributes
@@ -172,7 +172,7 @@ Req 12
     + Headers
 
                  Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
-                 
+
 + Response 200 (application/json)
 
     + Attributes(array[Customer])
@@ -187,7 +187,7 @@ Req 12
     + Headers
 
                  Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
-                 
+
 + Response 200 (application/json)
 
     + Attributes
@@ -200,7 +200,7 @@ Req 12
     + Headers
 
                  Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
-                 
+
 + Response 200 (application/json)
 
     + Attributes(array[Store])
@@ -215,12 +215,12 @@ Req 12
     + Headers
 
                  Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
-                 
+
 + Response 200 (application/json)
 
     + Attributes(Store)
 
-    
+
 ### Update Store [PUT]
 Req 12
 + Request (application/json)
@@ -231,15 +231,15 @@ Req 12
     + Attributes
         - orderID: `12345678-3715-4f91-8b4f-c4f3342f5a83` (required)
         - products (required)
-          - include StockExample 
-            
+          - include StockExample
+
 + Response 204
 
 ## Store stock [GET /stores/{id}/stock]
 Returns the current stock for a  store
 + Parameters
  - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
- 
+
 
 + Request
     + Headers
@@ -284,13 +284,13 @@ Returns the current stock for a  store
 
 # Group Authorization
 Req 12, Returns an array of roles and a token for auth in other routes
-## Authenticate [POST /authorization] 
+## Authenticate [POST /authorization]
 + Request (applcation/json)
 
     + Attributes
         - name: ABC123 (string, required)
         - password: 029352jojoj35123  (string, required) - Hashed password
-    
+
 + Response 200 (application/json)
 
     + Attributes(Session)
@@ -309,15 +309,15 @@ Req 12, Returns an array of roles and a token for auth in other routes
  - street: Bogdan Street 10 (string, required)
  - zip: 911 1337 (string, required)
  - city: Coimbra (string, required)
- - country 
+ - country
   - include Country
 
 ## Mobilephone
  - mobile: `+4612738592`, `+4644434593` (array)
- 
+
 ## Homephone
  - home: 0401315023, 040150532 (array)
-    
+
 ## PhoneNumbers (object)
  - include Mobilephone
  - include Homephone
@@ -339,12 +339,12 @@ Req 12, Returns an array of roles and a token for auth in other routes
  - include UUID
  - clubmember
   - include ClubMember
-   
+
 ## EmploymentHistory
  - postion: Beanmaker (string)
  - start
   - include Date
- - end 
+ - end
   - include Date
  - type: Full (string) - Employment Type
 
@@ -358,7 +358,7 @@ Req 12, Returns an array of roles and a token for auth in other routes
  - include UUID
  - include BaseEmployee
  - Comments (array[Comment])
- 
+
 
 ## Comment (object)
  - include UUID
@@ -372,10 +372,10 @@ Req 12, Returns an array of roles and a token for auth in other routes
  - adress
   - include Adress
  - orders: `12345678-3715-4f91-8b4f-c4f3342f5a83`, `12345678-3715-4f91-8b4f-c4f3342f5a89`  (array)
- - stock (array[StockExample]) 
-        
+ - stock (array[StockExample])
+
 ## StockExample
- - `78970117-3715-4f91-8b4f-c4f3342f5a83`: 20 - ID of product is the key 
+ - `78970117-3715-4f91-8b4f-c4f3342f5a83`: 20 - ID of product is the key
 
 ## Branch
   - include UUID
@@ -386,13 +386,13 @@ Req 12, Returns an array of roles and a token for auth in other routes
  - currency: SEK
  - language: SV
  - name: Sverige
- 
+
 ## BaseProduct
   - name: EN=Brewed Coffe, SV=Bryggkaffe (array, required)
-  - type: Brewed 
+  - type: Brewed
   - quantity: 1 (string)
-  - price: US=100, SE=10 (array, required) 
- 
+  - price: US=100, SE=10 (array, required)
+  
 ## Product (object)
   - include UUID
   - include BaseProduct
