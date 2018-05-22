@@ -1,12 +1,8 @@
 package test_data.dummy_data;
 
-import app.customer.Customer;
 import app.order.Order;
-import app.order.OrderProduct;
-import app.order.Status;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
-import org.apache.http.annotation.Immutable;
 
 import java.util.Map;
 

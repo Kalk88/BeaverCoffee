@@ -1,7 +1,5 @@
 package app.order;
 
-import app.customer.Customer;
-import app.product.Product;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 

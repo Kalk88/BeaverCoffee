@@ -8,7 +8,6 @@ import org.bson.Document;
 import org.junit.Before;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
-import static org.junit.Assert.*;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
 import test_data.dummy_data.OrderDummy;
@@ -18,6 +17,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Stream;
+
+import static org.junit.Assert.assertEquals;
 
 public class OrderTest {
     private Morphia morphia;
