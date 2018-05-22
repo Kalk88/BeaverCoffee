@@ -1,5 +1,5 @@
 # BeaverCoffee
-School project for non-relational databases course.
+School project for non-relational databases course. [![Build Status](https://travis-ci.com/Kalk88/BeaverCoffee.svg?branch=master)](https://travis-ci.com/Kalk88/BeaverCoffee)
 
 ## API documentation
 Available on Apiary
