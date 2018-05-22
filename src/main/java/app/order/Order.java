@@ -23,9 +23,7 @@ public class Order {
     private List<OrderProduct> products;
     private Status status;
 
-    public Order() {}
-
-
+    private Order() {}
 
     @Override
     public String toString() {

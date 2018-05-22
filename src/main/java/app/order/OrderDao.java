@@ -30,7 +30,6 @@ public class OrderDao {
         datastore.save(order);
     }
 
-    // TODO RENAME
     public List<Order> getOrdersFromQueryParams(Map<String, String[]> params) {
         final Query<Order> query = datastore.createQuery(Order.class);
 

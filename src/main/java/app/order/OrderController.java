@@ -24,7 +24,7 @@ public class OrderController {
     }
 
     public String createOrder(String body) {
-        Order order = new Order();
+        Order order;
         order = new Gson().fromJson(body, Order.class);
         String uuid = Utils.getUUIDString();
         order.setId(uuid);
