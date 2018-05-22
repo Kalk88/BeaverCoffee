@@ -363,10 +363,8 @@ Req 12, Returns an array of roles and a token for auth in other routes
 
 ## EmploymentHistory
  - postion: Beanmaker (string)
- - start
-  - include Date
- - end
-  - include Date
+ - start: 1526633863 (number) - Unix epoch timestamp
+ - end: 1526633863 (number) - Unix epoch timestamp
  - type: Full (string) - Employment Type
 
 ## BaseEmployee
@@ -383,7 +381,7 @@ Req 12, Returns an array of roles and a token for auth in other routes
 
 ## Comment (object)
  - include UUID
- - include Date
+ - include: 1526633863 (number) - Unix epoch timestamp 
  - employer: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required) - UUID v4
  - comment: You're my favorite guy, pal! (string, required) - Maximum length 300 characters
 
