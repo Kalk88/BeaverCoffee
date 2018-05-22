@@ -7,6 +7,9 @@ import app.order.OrderController;
 import app.order.OrderDao;
 import app.product.ProductController;
 import app.product.ProductDao;
+import app.store.StoreController;
+import app.store.StoreDao;
+import app.store.StoreException;
 import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
@@ -27,12 +30,14 @@ public class Application {
         morphia.mapPackage("com.babayaga.beavercoffee.order");
         morphia.mapPackage("com.babayaga.beavercoffee.customer");
         morphia.mapPackage("com.babayaga.beavercoffee.employee");
+        morphia.mapPackage("com.babayaga.beavercoffee.store");
         Datastore dataStore = morphia.createDatastore(client, "beaverDB");
 
         // init Controllers
         ProductController productController = new ProductController(new ProductDao(dataStore));
         OrderController orderController = new OrderController(new OrderDao(dataStore));
         final CustomerController customerController = new CustomerController(new CustomerDao(dataStore));
+        final StoreController storeController = new StoreController(new StoreDao(dataStore));
 
         // ROUTES
         // Products
@@ -95,12 +100,46 @@ public class Application {
             }
         });
 
-        //Customers
+        //Customer
         get("api/customers:id", (req, res) -> {
             try {
                 res.header("content-type", "application/json");
                 return new Gson().toJson(customerController.getCustomer(req.params(":id")));
             } catch (CustomerException e) {
+                res.status(400);
+                return e.getMessage();
+            }
+        });
+
+
+        //Stores
+        get("api/stores", (req, res) -> {
+            try {
+                res.header("content-type", "application/json");
+                return new Gson().toJson(storeController.getAllStores());
+            } catch (Exception e) {
+                res.status(400);
+                return "Error retrieving customers";
+            }
+        });
+
+        //Store
+        get("api/stores:id", (req, res) -> {
+            try {
+                res.header("content-type", "application/json");
+                return new Gson().toJson(storeController.getStore(req.params(":id")));
+            } catch (StoreException e) {
+                res.status(400);
+                return e.getMessage();
+            }
+        });
+
+        //Store
+        get("api/stores/:id/stock", (req, res) -> {
+            try {
+                res.header("content-type", "application/json");
+                return new Gson().toJson(storeController.getStoreStock(req.params(":id")));
+            } catch (StoreException e) {
                 res.status(400);
                 return e.getMessage();
             }
