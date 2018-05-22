@@ -346,8 +346,15 @@ Req 12, Returns an array of roles and a token for auth in other routes
  - include UUID
  - include Person
  - occupation: Youtube Influencer (string)
+ - cards (array[Card]) 
+
+## Card
+ - freepurchases: 10 
+ - barcode:`12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required) - UUID v4
  - validCountry
-  - include Country
+    - code: SE
+    - name: Sverige
+
 
 ## Customer
  - include UUID
@@ -389,7 +396,8 @@ Req 12, Returns an array of roles and a token for auth in other routes
  - stock (array[StockExample])
 
 ## StockExample
- - `78970117-3715-4f91-8b4f-c4f3342f5a83`: 20 - ID of product is the key
+ - productId: `78970117-3715-4f91-8b4f-c4f3342f5a83` - (string, required) - UUID v4
+ - quantity: 20 (string, required) - ID of product is the key 
 
 ## Branch
   - include UUID
@@ -406,6 +414,7 @@ Req 12, Returns an array of roles and a token for auth in other routes
   - type: Brewed
   - quantity: 1 (string)
   - price: US=100, SE=10 (array, required)
+
   
 ## Product (object)
   - include UUID
