@@ -81,6 +81,9 @@ public class Application {
                 e.printStackTrace();
                 res.status(400);
                 return "Error retrieving order";
+            }
+        });
+
         //Customers
         get("api/customers", (req, res) -> {
             try {
