@@ -3,6 +3,10 @@ package app.customer;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 
+/**
+ * This class models a BeaverCoffee customer.
+ */
+
 @Entity("customers")
 @Indexes(
         @Index(value = "id", fields = @Field("id"))
@@ -14,7 +18,11 @@ public class Customer {
     @Embedded
     private ClubMember clubmember;
 
-    public Customer() {}
+    private Customer() {}
+
+    public String getId() {
+        return id;
+    }
 
     @Override
     public String toString() {
