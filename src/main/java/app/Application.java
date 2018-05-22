@@ -1,5 +1,8 @@
 package app;
 
+import app.customer.CustomerController;
+import app.customer.CustomerDao;
+import app.customer.CustomerException;
 import app.order.OrderController;
 import app.order.OrderDao;
 import app.product.ProductController;
@@ -29,6 +32,7 @@ public class Application {
         // init Controllers
         ProductController productController = new ProductController(new ProductDao(dataStore));
         OrderController orderController = new OrderController(new OrderDao(dataStore));
+        final CustomerController customerController = new CustomerController(new CustomerDao(dataStore));
 
         // ROUTES
         // Products
@@ -57,7 +61,7 @@ public class Application {
                 return "Error retrieving orders";
             }
         });
-
+      
         // Get order with specific ID
         get("api/orders/:id", (req, res) -> {
             try {
@@ -77,6 +81,25 @@ public class Application {
                 e.printStackTrace();
                 res.status(400);
                 return "Error retrieving order";
+        //Customers
+        get("api/customers", (req, res) -> {
+            try {
+                res.header("content-type", "application/json");
+                return new Gson().toJson(customerController.getAllCustomers());
+            } catch (Exception e) {
+                res.status(400);
+                return "Error retrieving customers";
+            }
+        });
+
+        //Customers
+        get("api/customers:id", (req, res) -> {
+            try {
+                res.header("content-type", "application/json");
+                return new Gson().toJson(customerController.getCustomer(req.params(":id")));
+            } catch (CustomerException e) {
+                res.status(400);
+                return e.getMessage();
             }
         });
     }
