@@ -3,8 +3,6 @@ import app.product.ProductController;
 import app.product.ProductDao;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
-import static org.junit.Assert.*;
-
 import org.bson.Document;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +15,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Stream;
+
+import static org.junit.Assert.assertEquals;
 
 
 /**
