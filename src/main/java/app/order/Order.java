@@ -25,9 +25,17 @@ public class Order {
     private List<OrderProduct> products;
     private Status status;
 
+    public Order() {}
+
+
+
     @Override
     public String toString() {
         return id + " " + timestamp + " " + discount + " " + customer.toString() + " " + employeeID + " " + " " + storeID + " "
                 + " " + products.toString() + " " + status;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

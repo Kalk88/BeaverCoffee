@@ -1,6 +1,11 @@
 package app.order;
 
+import app.util.Utils;
+import com.google.gson.Gson;
+
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class OrderController {
     private OrderDao dao;
@@ -10,4 +15,21 @@ public class OrderController {
     }
 
     public List<Order> getAllOrders() {return dao.getAllOrders();}
+
+    public List<Order> getOrdersByQueryParams(Map<String, String[]> params) {
+        return dao.getOrdersFromQueryParams(params);
+    }
+
+    public Order getOrderById(String id) {
+        return dao.getOrderById(id);
+    }
+
+    public String createOrder(String body) {
+        Order order = new Order();
+        order = new Gson().fromJson(body, Order.class);
+        String uuid = Utils.getUUIDString();
+        order.setId(uuid);
+        dao.createOrder(order);
+        return uuid;
+    }
 }
