@@ -3,7 +3,6 @@ package app.product;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 
-import java.util.List;
 import java.util.Map;
 
 /**

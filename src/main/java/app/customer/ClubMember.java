@@ -1,7 +1,6 @@
 package app.customer;
 
 import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.Id;
 
 import java.util.List;
 

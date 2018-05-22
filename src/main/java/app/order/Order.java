@@ -1,7 +1,5 @@
 package app.order;
 
-import app.customer.Customer;
-import app.product.Product;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 
@@ -25,9 +23,15 @@ public class Order {
     private List<OrderProduct> products;
     private Status status;
 
+    private Order() {}
+
     @Override
     public String toString() {
         return id + " " + timestamp + " " + discount + " " + customer.toString() + " " + employeeID + " " + " " + storeID + " "
                 + " " + products.toString() + " " + status;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
