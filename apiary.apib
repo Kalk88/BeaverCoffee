@@ -40,7 +40,7 @@ Req 3, Removal of orders not in process are allowed
 
 + Response 204
 
-## Orders [/orders{?employeeID,status}]
+## Orders [/orders{?employeeID,status,from,to}]
 ### Create Order [POST]
 Req 12, Creates a new order
 + Request (application/json)
@@ -57,6 +57,8 @@ Req 12, Fetch current orders not i process by default, may be queried by employe
 + Parameters
     - status: pending, inprocess, finished (enum, optional) - one of pending, inprocess, finished
     - employeeID: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, optional)
+    - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
+    - to: `2018-04-28T20:06+02:00` (string, optional) - To time period
 
 + Request
     + Headers
@@ -99,10 +101,11 @@ Req 9
 
 + Response 204
 
-## Employee Reports [GET /employees/{id}/reports{?timeperiod}]
+## Employee Reports [GET /employees/{id}/reports{?from,to}]
 + Parameters
-    - timeperiod: `2018-04-27T20:06+02:00-2018-04-27T20:06+02:00` (string, optional) - From to time period
     - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
+    - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
+    - to: `2018-04-28T20:06+02:00` (string, optional) - To time period
 
 + Request
     + Headers
@@ -139,9 +142,10 @@ Req 12
     + Attributes(array[Employee])
 
 
-## Employees [GET /employees/reports{?timeperiod}]
+## Employees [GET /employees/reports{?from,to}]
 + Parameters
-    - timeperiod: `2018-04-27T20:06+02:00-2018-04-27T20:06+02:00` (string, optional) - From to time period
+    - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
+    - to: `2018-04-28T20:06+02:00` (string, optional) - To time period
 
 + Request
     + Headers
@@ -177,11 +181,12 @@ Req 12
 
     + Attributes(array[Customer])
 
-## Customer Reports [GET /customers/reports{?postalcode,occupation,timeperiod}]
+## Customer Reports [GET /customers/reports{?postalcode,occupation,from,to}]
 + Parameters
     - postalcode: 212 13 (string, optional)
     - occupation: youtube influencer (string, optional)
-    - timeperiod: `2018-04-27T20:06+02:00-2018-04-27T20:06+02:00` (string, optional) - From to time period
+    - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
+    - to: `2018-04-28T20:06+02:00` (string, optional) - To time period
 
 + Request
     + Headers
@@ -250,11 +255,13 @@ Returns the current stock for a  store
 
     + Attributes(array[StockExample])
 
-## Store Report [GET /stores/{id}/reports{?timeperiod,productIDs}]
+## Store Report [GET /stores/{id}/reports{?from,to,productIDs}]
 + Parameters
-    - timeperiod: `2018-04-27T20:06+02:00-2018-04-27T20:06+02:00` (string, optional) - From to time period
-    - productIDs: `12345678-3715-4f91-8b4f-c4f3342f5a83`, `12345678-3715-4f91-8b4f-c4f3342f5a83` (array, optional)
     - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
+    - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
+    - to: `2018-04-28T20:06+02:00` (string, optional) - To time period
+    - productIDs: `12345678-3715-4f91-8b4f-c4f3342f5a83`, `12345678-3715-4f91-8b4f-c4f3342f5a83` (array, optional)
+   
 
 + Request
     + Headers
@@ -266,11 +273,12 @@ Returns the current stock for a  store
     + Attributes
         - store data: blalba
 
-## Stock Reports [GET /stores/{id}/stock/reports{?timeperiod,productIDs}]
+## Stock Reports [GET /stores/{id}/stock/reports{?from,to,productIDs}]
 + Parameters
-    - timeperiod: `2018-04-27T20:06+02:00-2018-04-27T20:06+02:00` (string, optional) - From to time period
-    - productIDs: `12345678-3715-4f91-8b4f-c4f3342f5a83`, `12345678-3715-4f91-8b4f-c4f3342f5a83` (array, optional)
     - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
+    - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
+    - to: `2018-04-28T20:06+02:00` (string, optional) - To time period
+    - productIDs: `12345678-3715-4f91-8b4f-c4f3342f5a83`, `12345678-3715-4f91-8b4f-c4f3342f5a83` (array, optional)
 
 + Request
     + Headers
@@ -331,7 +339,7 @@ Req 12, Returns an array of roles and a token for auth in other routes
 ## ClubMember
  - include UUID
  - include Person
- - ocupation: Youtube Influencer (string)
+ - occupation: Youtube Influencer (string)
  - validCountry
   - include Country
 
