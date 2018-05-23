@@ -1,5 +1,8 @@
 package app.customer;
 
+import app.util.Utils;
+import com.google.gson.Gson;
+
 import java.util.List;
 
 public class CustomerController {
@@ -30,5 +33,12 @@ public class CustomerController {
         } catch (IndexOutOfBoundsException e) {
             throw new CustomerException("Can not find customer with that id");
         }
+    }
+
+    public String createCustomer(String data) {
+        Customer customer = new Gson().fromJson(data, Customer.class);
+        customer.setId(Utils.getUUIDString());
+        dao.insertCustomer(customer);
+        return customer.getId();
     }
 }
