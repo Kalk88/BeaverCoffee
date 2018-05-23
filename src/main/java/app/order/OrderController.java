@@ -31,4 +31,12 @@ public class OrderController {
         dao.createOrder(order);
         return uuid;
     }
+
+    public void updateOrder(String body) {
+        Order order;
+        order = new Gson().fromJson(body, Order.class);
+        Order orderToBeUpdated = getOrderById(order.getId());
+        Order updatedOrder = orderToBeUpdated.overwriteOrder(order);
+        dao.createOrder(updatedOrder);
+    }
 }

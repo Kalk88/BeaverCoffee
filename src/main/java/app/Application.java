@@ -84,6 +84,18 @@ public class Application {
             }
         });
 
+        put("api/orders/:id", (req, res) -> {
+            try {
+                orderController.updateOrder(req.body());
+                res.status(204);
+                return "";
+            } catch (Exception e) {
+                e.printStackTrace();
+                res.status(400);
+                return "Error updating order";
+            }
+        });
+
         //Customers
         get("api/customers", (req, res) -> {
             try {
