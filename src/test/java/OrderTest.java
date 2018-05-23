@@ -75,15 +75,15 @@ public class OrderTest {
     @Test
     public void get_orders_from_specific_zip() {
         final Query<Order> query = datastore.createQuery(Order.class);
-        final List<Order> orders = query.filter("customer.clubmember.homeAdress.zip", "911 1337").asList();
-        assertEquals(2, orders.size());
+        final List<Order> orders = query.filter("customer.clubmember.homeAdress.zip", "60647").asList();
+        assertEquals(1, orders.size());
     }
 
     @Test
     public void get_orders_from_specific_occupation() {
         final Query<Order> query = datastore.createQuery(Order.class);
         final List<Order> orders = query.filter("customer.clubmember.occupation", "Youtube Influencer").asList();
-        assertEquals(4, orders.size());
+        assertEquals(2, orders.size());
     }
 
     @Test
