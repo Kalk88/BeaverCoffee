@@ -2,6 +2,10 @@ package app.customer;
 
 import org.mongodb.morphia.annotations.Embedded;
 
+/**
+ * This class models data about where a club member card is valid.
+ */
+
 @Embedded
 public class ValidCountry {
     private String code;
