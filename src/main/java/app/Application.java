@@ -30,8 +30,8 @@ public class Application {
         Datastore dataStore = morphia.createDatastore(client, "beaverDB");
 
         // init Controllers
-        ProductController productController = new ProductController(new ProductDao(dataStore));
-        OrderController orderController = new OrderController(new OrderDao(dataStore));
+        final ProductController productController = new ProductController(new ProductDao(dataStore));
+        final OrderController orderController = new OrderController(new OrderDao(dataStore));
         final CustomerController customerController = new CustomerController(new CustomerDao(dataStore));
 
         // ROUTES
