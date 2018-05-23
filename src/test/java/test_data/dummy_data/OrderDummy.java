@@ -11,7 +11,7 @@ public class OrderDummy {
             "status", new String[]{"Finished"}
     );
 
-    public static String data = "{ \"id\": \"78970117-3715-4f91-8b4f-c4f3342f5a83\", \"timestamp\": 1526633863, \"discount\": \"%10\", \"customer\":\n" +
+    public static String data = "{ \"id\": \"78970117-3715-4f91-8b4f-c4f3342f5a85\", \"timestamp\": 1526633863, \"discount\": \"%10\", \"customer\":\n" +
             "        { \"id\": \"78970117-3715-4f91-8b4f-c4f3342f5a83\", \"clubmember\":\n" +
             "            {\"id\": \"78970117-3715-4f91-8b4f-c4f3342f5a83\", \"first\": \"Jens\", \"last\": \"Conny\", \"SSN\": \"098745028374\", \"homeAdress\":\n" +
             "                [{\"street\": \"Bogdan Street 10\", \"zip\": \"911 1337\", \"city\": \"Coimbra\", \"country\":\n" +
