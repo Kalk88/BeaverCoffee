@@ -21,4 +21,10 @@ public class ClubMember {
         return first + " " + last + " " + SSN  + " " + homeAdress.toString()  + " " +
                 occupation  + " " + cards.toString();
     }
+
+    public boolean invariant() {
+        if ( id != null && first != null && last != null && SSN != null &&
+                homeAdress != null && occupation != null && cards != null) return true;
+        return false;
+    }
 }

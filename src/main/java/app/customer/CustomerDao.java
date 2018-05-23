@@ -32,4 +32,8 @@ public class CustomerDao {
         final List<Customer> customer = query.field("id").equal(id).asList();
         return customer.get(0);
     }
+
+    public void insertCustomer(Customer customer) {
+        datastore.save(customer);
+    }
 }
