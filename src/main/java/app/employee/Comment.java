@@ -18,6 +18,6 @@ public class Comment {
 
     @Override
     public String toString() {
-        return employeeID  + " " + timestamp  + " " + employerID  + " " + comment.toString();
+        return employeeID  + " " + timestamp  + " " + employerID  + " " + comment;
     }
 }

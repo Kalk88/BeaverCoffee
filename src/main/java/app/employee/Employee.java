@@ -46,6 +46,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return _id + " " + id + " " + details.toString()  + " " + comments.toString();
+        return id + " " + details.toString()  + " " + comments.toString();
     }
 }
