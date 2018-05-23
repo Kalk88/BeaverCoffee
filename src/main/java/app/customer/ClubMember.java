@@ -12,13 +12,13 @@ public class ClubMember {
     private String SSN;
     private List<Adress> homeAdress;
     private String occupation;
-    private Country validCountry;
+    private List<Card> cards;
 
     public ClubMember() {}
 
     @Override
     public String toString() {
         return first + " " + last + " " + SSN  + " " + homeAdress.toString()  + " " +
-                occupation  + " " + validCountry.toString();
+                occupation  + " " + cards.toString();
     }
 }
