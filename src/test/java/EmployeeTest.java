@@ -58,6 +58,7 @@ public class EmployeeTest {
         final Query<Employee> query = datastore.createQuery(Employee.class);
         final List<Employee> employees = query.asList();
         employees.forEach(System.out::println);
+
     }
 
     @Test
@@ -65,7 +66,7 @@ public class EmployeeTest {
         final EmployeeDao dao = new EmployeeDao(datastore);
         final EmployeeController controller = new EmployeeController(dao);
         final List<Employee> employees = controller.getAllEmployees();
-        employees.forEach(System.out::println);
+        assertEquals(2, employees.size());
     }
 
     @Test
@@ -74,7 +75,7 @@ public class EmployeeTest {
         final EmployeeController controller = new EmployeeController(dao);
         String id = "78970117-3715-4f91-8b4f-c4f3342f5a83";
         final Employee employee = controller.getEmployeeById(id);
-        System.out.println(employee);
+        assertEquals(id, employee.getId());
     }
 
     @Test
