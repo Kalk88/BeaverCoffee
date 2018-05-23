@@ -2,6 +2,7 @@ import app.order.Order;
 import app.order.OrderController;
 import app.order.OrderDao;
 import app.util.Utils;
+import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class OrderTest {
     private Morphia morphia;
@@ -154,6 +156,18 @@ public class OrderTest {
         final OrderController controller = new OrderController(dao);
         controller.createOrder(OrderDummy.data);
         assertEquals(5, datastore.getCollection(Order.class).count());
+    }
+
+    @Test
+    public void should_update_order_with_new_values() {
+        final OrderDao dao = new OrderDao(datastore);
+        final OrderController controller = new OrderController(dao);
+        Order orderToBeUpdated = controller.getOrderById("78970117-3715-4f91-8b4f-c4f3342f5a84");
+        Order order = new Gson().fromJson(OrderDummy.updatedData, Order.class);
+        Order updatedOrder = orderToBeUpdated.overwriteOrder(order);
+        assertEquals(updatedOrder.get_id(), orderToBeUpdated.get_id());
+        dao.createOrder(updatedOrder);
+        assertEquals(4, datastore.getCollection(Order.class).count());
     }
 
     // Random tests for the purpose of utility methods and such.
