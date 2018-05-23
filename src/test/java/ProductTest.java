@@ -28,6 +28,7 @@ public class ProductTest {
 
     @Before
     public void setup() {
+        System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "WARN");
         morphia = new Morphia();
         final MongoClient client = new MongoClient();
         morphia.mapPackage("com.babayaga.beavercoffee.product"); // Can be called several times with diffrent packages if needed
