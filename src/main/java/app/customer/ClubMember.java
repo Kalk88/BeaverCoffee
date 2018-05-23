@@ -14,7 +14,7 @@ public class ClubMember {
     private String occupation;
     private List<Card> cards;
 
-    public ClubMember() {}
+    private ClubMember() {}
 
     @Override
     public String toString() {
