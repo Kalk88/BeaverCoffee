@@ -12,6 +12,8 @@ import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
+import java.util.logging.Logger;
+
 import static spark.Spark.*;
 
 public class Application {
@@ -116,6 +118,18 @@ public class Application {
             } catch (Exception e) {
                 res.status(400);
                 return "Error retrieving customers";
+            }
+        });
+
+        post("api/customers", (req, res) -> {
+            try {
+                res.header("content-type", "application/json");
+                String id = customerController.createCustomer(req.body());
+                return String.format("{\"id\":\"%s\"}", id);
+            } catch (Exception e) {
+                e.printStackTrace();
+                res.status(400);
+                return "Error adding customer";
             }
         });
 
