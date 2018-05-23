@@ -5,6 +5,7 @@ import app.customer.CustomerException;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -71,6 +72,7 @@ public class CustomerTest {
         final CustomerDao dao = new CustomerDao(dataStore);
         final CustomerController controller = new CustomerController(dao);
         final List<Customer> customers = controller.getAllCustomers();
+        customers.forEach(System.out::println);
         assertEquals(9, customers.size());
     }
 
@@ -85,7 +87,6 @@ public class CustomerTest {
         } catch (CustomerException e) {
             e.printStackTrace();
         }
-
     }
 
     @Test
