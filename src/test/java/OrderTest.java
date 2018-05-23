@@ -146,7 +146,7 @@ public class OrderTest {
         Order order = OrderDummy.GetDummyOrder();
         datastore.save(order);
         final Query<Order> query = datastore.createQuery(Order.class);
-        final List<Order> orders = query.filter("id", "78970117-3715-4f91-8b4f-c4f3342f5a83").asList();
+        final List<Order> orders = query.filter("id", "78970117-7812-4f91-8b4f-c4f3342f5a83").asList();
         assertEquals(1, orders.size());
     }
 
