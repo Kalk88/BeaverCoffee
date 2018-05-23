@@ -104,6 +104,7 @@ Req 9
 + Response 204
 
 ## Employee Reports [GET /employees/{id}/reports{?from,to}]
+Req 13.5
 + Parameters
     - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
     - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
@@ -146,10 +147,10 @@ Req 12
     + Attributes(array[Employee])
 
 
-## Employees [GET /employees/reports{?from,to}]
+## Employee reports [GET /employees/listing/{storeid}]
+13.6
 + Parameters
-    - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
-    - to: `2018-04-28T20:06+02:00` (string, optional) - To time period
+    - storeid: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string)
 
 + Request
     + Headers
@@ -164,13 +165,13 @@ Req 12
 # Group Customers
 ## Customers [/customers]
 ### Create Customer [POST]
-Req 12, Branch manager and pleb employee Used when adding club member
+Req 12, Req 5 Branch manager and regular employee may add a customer to the datbase on this uri.
 + Request (application/json)
     + Headers
 
                  Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
 
-    + Attributes(Customer)
+    + Attributes(BaseCustomer)
 
 + Response 201 (application/json)
      + Attributes
@@ -247,6 +248,7 @@ Returns the current stock for a  store
     + Attributes(array[StockExample])
 
 ## Store Report [GET /stores/{id}/reports{?from,to,productIDs}]
+Req 13.1, 13.2
 + Parameters
     - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
     - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
@@ -265,6 +267,7 @@ Returns the current stock for a  store
         - store data: blalba
 
 ## Stock Reports [GET /stores/{id}/stock/reports{?from,to,productIDs}]
+Req 13.4
 + Parameters
     - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
     - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
@@ -334,17 +337,21 @@ Req 12, Returns an array of roles and a token for auth in other routes
  - cards (array[Card]) 
 
 ## Card
- - freepurchases: 10 
+ - numOfPurchases: 10 
  - barcode:`12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required) - UUID v4
  - validCountry
     - code: SE
     - name: Sverige
 
+## BaseCustomer
+ - clubmember
+  - include ClubMember
+   
 
 ## Customer
  - include UUID
- - clubmember
-  - include ClubMember
+ - include BaseCustomer
+ 
 
 ## EmploymentHistory
  - postion: Beanmaker (string)
