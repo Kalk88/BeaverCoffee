@@ -22,7 +22,7 @@ public class Employee {
         return id;
     }
 
-    public Employee() {}
+    private Employee() {}
 
     private Employee(Employee employee, ObjectId _id) {
         this._id = _id;
