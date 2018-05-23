@@ -21,7 +21,7 @@ Req 12, Fetches the data for order with the given id.
     + Attributes(Order)
 
 ### Update Order [PUT]
-Req 12, Updates for orders not in process are allowed
+Updates for orders not in process are allowed. 
 + Request (application/json)
   + Headers
 
@@ -32,7 +32,7 @@ Req 12, Updates for orders not in process are allowed
 + Response 204
 
 ### Remove Order [DELETE]
-Req 3, Removal of orders not in process are allowed
+Req 3, Removal of orders not in process are allowed.
 + Request
     + Headers
 
@@ -42,7 +42,7 @@ Req 3, Removal of orders not in process are allowed
 
 ## Orders [/orders{?employeeID,status,from,to}]
 ### Create Order [POST]
-Req 12, Creates a new order
+Add a new order to the database. Returns an orderID.
 + Request (application/json)
   + Headers
 
@@ -85,7 +85,7 @@ Returns all products for sale.
  - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
 
 ### View Employee [GET]
-Req 9
+Returns information about an employee with the given id.
 + Request
     + Headers
 
@@ -96,7 +96,7 @@ Req 9
     + Attributes(Employee)
 
 ### Update Employee [PUT]
-Req 9
+Overwrites information about the employee with the given id.
 + Request (application/json)
 
     + Attributes(Employee)
@@ -104,6 +104,7 @@ Req 9
 + Response 204
 
 ## Employee Reports [GET /employees/{id}/reports{?from,to}]
+Req 13.5
 + Parameters
     - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
     - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
@@ -135,7 +136,7 @@ Req 12
         - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string)
 
 ### View Employees [GET]
-Req 12
+Returns a list with all employees.
 + Request
     + Headers
 
@@ -146,10 +147,10 @@ Req 12
     + Attributes(array[Employee])
 
 
-## Employees [GET /employees/reports{?from,to}]
+## Employee reports [GET /employees/listing/{storeid}]
+13.6
 + Parameters
-    - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
-    - to: `2018-04-28T20:06+02:00` (string, optional) - To time period
+    - storeid: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string)
 
 + Request
     + Headers
@@ -164,20 +165,20 @@ Req 12
 # Group Customers
 ## Customers [/customers]
 ### Create Customer [POST]
-Req 12, Branch manager and pleb employee Used when adding club member
+Req 12, Req 5 Branch manager and regular employee may add a customer to the datbase on this url.
 + Request (application/json)
     + Headers
 
                  Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
 
-    + Attributes(Customer)
+    + Attributes(BaseCustomer)
 
 + Response 201 (application/json)
      + Attributes
         - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string)
 
 ### View Customers [GET]
-Req 12
+Returns a list of all coustomers.
 + Request
     + Headers
 
@@ -231,21 +232,6 @@ Req 12
 
     + Attributes(Store)
 
-
-### Update Store [PUT]
-Req 12
-+ Request (application/json)
-    + Headers
-
-                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
-
-    + Attributes
-        - orderID: `12345678-3715-4f91-8b4f-c4f3342f5a83` (required)
-        - products (required)
-          - include StockExample
-
-+ Response 204
-
 ## Store stock [GET /stores/{id}/stock]
 Returns the current stock for a  store
 + Parameters
@@ -262,6 +248,7 @@ Returns the current stock for a  store
     + Attributes(array[StockExample])
 
 ## Store Report [GET /stores/{id}/reports{?from,to,productIDs}]
+Req 13.1, 13.2
 + Parameters
     - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
     - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
@@ -280,6 +267,7 @@ Returns the current stock for a  store
         - store data: blalba
 
 ## Stock Reports [GET /stores/{id}/stock/reports{?from,to,productIDs}]
+Req 13.4
 + Parameters
     - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
     - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
@@ -320,9 +308,9 @@ Req 12, Returns an array of roles and a token for auth in other routes
  - roles: Cashier, Store Manager, Branch Manager, Corporate Sales (array)
 
 ## Adress (object)
- - street: Bogdan Street 10 (string, required)
- - zip: 911 1337 (string, required)
- - city: Coimbra (string, required)
+ - street: Gejiersgatan 10 (string, required)
+ - zip: 215 12 (string, required)
+ - city: Malmö (string, required)
  - country
   - include Country
 
@@ -346,26 +334,35 @@ Req 12, Returns an array of roles and a token for auth in other routes
  - include UUID
  - include Person
  - occupation: Youtube Influencer (string)
+ - cards (array[Card]) 
+
+## Card
+ - numOfPurchases: 10 
+ - barcode:`12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required) - UUID v4
  - validCountry
-  - include Country
+    - code: SE
+    - name: Sverige
+
+## BaseCustomer
+ - clubmember
+  - include ClubMember
+   
 
 ## Customer
  - include UUID
- - clubmember
-  - include ClubMember
+ - include BaseCustomer
+ 
 
 ## EmploymentHistory
  - postion: Beanmaker (string)
- - start
-  - include Date
- - end
-  - include Date
+ - start: 1526633863 (number) - Unix epoch timestamp
+ - end: 1526633863 (number) - Unix epoch timestamp
  - type: Full (string) - Employment Type
 
 ## BaseEmployee
 - details (object)
     - include Person
-    - phonenumbers(PhoneNumbers)
+    - phoneNumbers(PhoneNumbers)
  - employmentHistory (array[EmploymentHistory])
 
 ## Employee
@@ -376,7 +373,7 @@ Req 12, Returns an array of roles and a token for auth in other routes
 
 ## Comment (object)
  - include UUID
- - include Date
+ - include: 1526633863 (number) - Unix epoch timestamp 
  - employer: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required) - UUID v4
  - comment: You're my favorite guy, pal! (string, required) - Maximum length 300 characters
 
@@ -389,7 +386,8 @@ Req 12, Returns an array of roles and a token for auth in other routes
  - stock (array[StockExample])
 
 ## StockExample
- - `78970117-3715-4f91-8b4f-c4f3342f5a83`: 20 - ID of product is the key
+ - productId: `78970117-3715-4f91-8b4f-c4f3342f5a83` - (string, required) - UUID v4
+ - quantity: 20 (string, required) - ID of product is the key 
 
 ## Branch
   - include UUID
@@ -406,6 +404,7 @@ Req 12, Returns an array of roles and a token for auth in other routes
   - type: Brewed
   - quantity: 1 (string)
   - price: US=100, SE=10 (array, required)
+
   
 ## Product (object)
   - include UUID
