@@ -14,7 +14,7 @@ public class Comment {
     private String employerID;
     private String comment;
 
-    public Comment() {}
+    private Comment() {}
 
     @Override
     public String toString() {

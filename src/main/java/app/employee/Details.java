@@ -19,7 +19,7 @@ public class Details {
     private PhoneNumbers phoneNumbers;
     private List<EmploymentHistory> employmentHistory;
 
-    public Details() {}
+    private Details() {}
 
     @Override
     public String toString() {
