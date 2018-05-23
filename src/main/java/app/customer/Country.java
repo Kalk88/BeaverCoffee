@@ -2,6 +2,10 @@ package app.customer;
 
 import org.mongodb.morphia.annotations.Embedded;
 
+/**
+ * This class models locale information.
+ */
+
 @Embedded
 public class Country {
     private String code;
@@ -9,7 +13,7 @@ public class Country {
     private String language;
     private String name;
 
-    public Country() {}
+    private Country() {}
 
     @Override
     public String toString() {

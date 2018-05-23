@@ -14,6 +14,8 @@ import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
+import java.util.logging.Logger;
+
 import static spark.Spark.*;
 
 public class Application {
@@ -32,8 +34,8 @@ public class Application {
         Datastore dataStore = morphia.createDatastore(client, "beaverDB");
 
         // init Controllers
-        ProductController productController = new ProductController(new ProductDao(dataStore));
-        OrderController orderController = new OrderController(new OrderDao(dataStore));
+        final ProductController productController = new ProductController(new ProductDao(dataStore));
+        final OrderController orderController = new OrderController(new OrderDao(dataStore));
         final CustomerController customerController = new CustomerController(new CustomerDao(dataStore));
         final EmployeeController employeeController = new EmployeeController(new EmployeeDao(dataStore));
 
@@ -87,6 +89,30 @@ public class Application {
             }
         });
 
+        put("api/orders/:id", (req, res) -> {
+            try {
+                orderController.updateOrder(req.body());
+                res.status(204);
+                return "";
+            } catch (Exception e) {
+                e.printStackTrace();
+                res.status(400);
+                return "Error updating order";
+            }
+        });
+
+        delete("api/orders/:id", (req, res) -> {
+            try {
+                orderController.deleteOrder(req.body());
+                res.status(204);
+                return "";
+            } catch (Exception e) {
+                e.printStackTrace();
+                res.status(400);
+                return "Error deleting order";
+            }
+        });
+
         //Customers
         get("api/customers", (req, res) -> {
             try {
@@ -95,6 +121,18 @@ public class Application {
             } catch (Exception e) {
                 res.status(400);
                 return "Error retrieving customers";
+            }
+        });
+
+        post("api/customers", (req, res) -> {
+            try {
+                res.header("content-type", "application/json");
+                String id = customerController.createCustomer(req.body());
+                return String.format("{\"id\":\"%s\"}", id);
+            } catch (Exception e) {
+                e.printStackTrace();
+                res.status(400);
+                return "Error adding customer";
             }
         });
 
