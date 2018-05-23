@@ -3,6 +3,8 @@ package app;
 import app.customer.CustomerController;
 import app.customer.CustomerDao;
 import app.customer.CustomerException;
+import app.employee.EmployeeController;
+import app.employee.EmployeeDao;
 import app.order.OrderController;
 import app.order.OrderDao;
 import app.product.ProductController;
@@ -35,6 +37,7 @@ public class Application {
         final ProductController productController = new ProductController(new ProductDao(dataStore));
         final OrderController orderController = new OrderController(new OrderDao(dataStore));
         final CustomerController customerController = new CustomerController(new CustomerDao(dataStore));
+        final EmployeeController employeeController = new EmployeeController(new EmployeeDao(dataStore));
 
         // ROUTES
         // Products
@@ -141,6 +144,59 @@ public class Application {
             } catch (CustomerException e) {
                 res.status(400);
                 return e.getMessage();
+            }
+        });
+
+        //Employee
+        // Get employee with specific ID
+        get("api/employees/:id", (req, res) -> {
+            try {
+                res.header("content-type", "application/json");
+                return new Gson().toJson(employeeController.getEmployeeById(req.params("id")));
+            } catch (Exception e) {
+                res.status(400);
+                return "Error retrieving employee";
+            }
+        });
+
+        //Get all employees
+        get("api/employees", (req, res) -> {
+            try {
+                res.header("content-type", "application/json");
+                if (req.queryMap() != null){
+                    return new Gson().toJson(employeeController.getEmployeesByQueryParams(req.queryMap().toMap()));
+                } else {
+                    return new Gson().toJson(employeeController.getAllEmployees());
+                }
+            } catch (Exception e) {
+                res.status(400);
+                e.printStackTrace();
+                return "Error retrieving orders";
+            }
+        });
+
+        //Create Employee
+        post("api/employees", (req, res) -> {
+            try {
+                res.header("content-type", "application/json");
+                return new Gson().toJson(employeeController.createEmployee(req.body()));
+            } catch (Exception e) {
+                e.printStackTrace();
+                res.status(400);
+                return "Error retrieving employee";
+            }
+        });
+
+        //Update Employee
+        put("api/employees/:id", (req, res) -> {
+            try {
+                employeeController.updateEmployee(req.body());
+                res.status(204);
+                return "";
+            } catch (Exception e) {
+                e.printStackTrace();
+                res.status(400);
+                return "Error updating employee";
             }
         });
     }
