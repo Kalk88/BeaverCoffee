@@ -28,7 +28,7 @@ public class OrderController {
         order = new Gson().fromJson(body, Order.class);
         String uuid = Utils.getUUIDString();
         order.setId(uuid);
-        dao.createOrder(order);
+        dao.insertOrder(order);
         return uuid;
     }
 
@@ -37,6 +37,13 @@ public class OrderController {
         order = new Gson().fromJson(body, Order.class);
         Order orderToBeUpdated = getOrderById(order.getId());
         Order updatedOrder = orderToBeUpdated.overwriteOrder(order);
-        dao.createOrder(updatedOrder);
+        dao.insertOrder(updatedOrder);
+    }
+
+    public void deleteOrder(String body) {
+        Order order;
+        order = new Gson().fromJson(body, Order.class);
+        Order orderToBeDeleted = getOrderById(order.getId());
+        dao.deleteOrder(orderToBeDeleted);
     }
 }

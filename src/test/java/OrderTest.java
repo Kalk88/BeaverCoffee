@@ -166,9 +166,30 @@ public class OrderTest {
         Order order = new Gson().fromJson(OrderDummy.updatedData, Order.class);
         Order updatedOrder = orderToBeUpdated.overwriteOrder(order);
         assertEquals(updatedOrder.get_id(), orderToBeUpdated.get_id());
-        dao.createOrder(updatedOrder);
+        dao.insertOrder(updatedOrder);
         assertEquals(4, datastore.getCollection(Order.class).count());
     }
+
+    @Test
+    public void should_delete_order_by_id() {
+        final OrderDao dao = new OrderDao(datastore);
+        final OrderController controller = new OrderController(dao);
+        Order orderToBeDeleted = controller.getOrderById("78970117-3715-4f91-8b4f-c4f3342f5a84");
+        dao.deleteOrder(orderToBeDeleted);
+        assertEquals(3, datastore.getCollection(Order.class).count());
+    }
+
+    @Test
+    public void should_not_find_deleted_order() {
+        final OrderDao dao = new OrderDao(datastore);
+        final OrderController controller = new OrderController(dao);
+        Order order = controller.getOrderById("78970117-3715-4f91-8b4f-c4f3342f5a84");
+        String orderToBeDeleted = new Gson().toJson(order);
+        controller.deleteOrder(orderToBeDeleted);
+        Order checkOrder = controller.getOrderById("78970117-3715-4f91-8b4f-c4f3342f5a84");
+        assertEquals(null, checkOrder);
+    }
+
 
     // Random tests for the purpose of utility methods and such.
     @Test
