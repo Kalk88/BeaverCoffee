@@ -56,8 +56,8 @@ public class EmployeeTest {
     @Test
     public void print_employees() {
         final Query<Employee> query = datastore.createQuery(Employee.class);
-        final List<Employee> orders = query.asList();
-        orders.forEach(System.out::println);
+        final List<Employee> employees = query.asList();
+        employees.forEach(System.out::println);
     }
 
     @Test
@@ -92,8 +92,8 @@ public class EmployeeTest {
     @Test
     public void get_employees_during_specified_timeperiod() {
         final Query<Employee> query = datastore.createQuery(Employee.class);
-        query.filter("details.employmentHistory.startDate >", 1526633860);
-        query.filter("details.employmentHistory.endDate <", 1526947201);
+        query.filter("details.employmentHistory.startTimestamp >", 1526633860);
+        query.filter("details.employmentHistory.endTimestamp <", 1526947201);
         final List<Employee> employees = query.asList();
         assertEquals(2, employees.size());
     }

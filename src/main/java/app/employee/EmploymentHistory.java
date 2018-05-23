@@ -8,8 +8,8 @@ import org.mongodb.morphia.annotations.Embedded;
 @Embedded
 public class EmploymentHistory {
     private String position;
-    private int startDate;
-    private int endDate;
+    private int startTimestamp;
+    private int endTimestamp;
     private String type;
 
     public EmploymentHistory() {
@@ -17,6 +17,6 @@ public class EmploymentHistory {
 
     @Override
     public String toString() {
-        return position + " " + startDate + " " + endDate + " " + type;
+        return position + " " + startTimestamp + " " + endTimestamp + " " + type;
     }
 }
