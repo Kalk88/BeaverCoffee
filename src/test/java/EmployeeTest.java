@@ -1,7 +1,6 @@
 import app.employee.Employee;
 import app.employee.EmployeeController;
 import app.employee.EmployeeDao;
-import app.order.Order;
 import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -13,9 +12,7 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
 import test_data.dummy_data.EmployeeDummy;
-import test_data.dummy_data.OrderDummy;
 
-import static org.junit.Assert.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -31,6 +28,7 @@ public class EmployeeTest {
 
     @Before
     public void setup() {
+        System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "WARN");
         morphia = new Morphia();
         client = new MongoClient();
         morphia.mapPackage("com.babayaga.beavercoffee.order");

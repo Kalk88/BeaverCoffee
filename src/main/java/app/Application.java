@@ -14,8 +14,6 @@ import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
-import java.util.logging.Logger;
-
 import static spark.Spark.*;
 
 public class Application {
