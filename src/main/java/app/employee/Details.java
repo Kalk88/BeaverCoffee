@@ -1,8 +1,6 @@
 package app.employee;
 
-import app.customer.*;
 import app.customer.Adress;
-import app.customer.Country;
 import org.mongodb.morphia.annotations.Embedded;
 
 import java.util.List;

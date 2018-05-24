@@ -1,8 +1,6 @@
 package app.employee;
 
-import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.Id;
 
 /**
  * Created by ep on 2018-05-22.
