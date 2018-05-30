@@ -18,9 +18,13 @@ public class Store {
     private LinkedList<Stock> stock;
     private LinkedList<String> orders;
 
-
     public LinkedList<Stock> getStock() {
         return stock;
+    }
+
+
+    public LinkedList<String> getOrders() {
+        return orders;
     }
 
     public void setStock(LinkedList<Stock> stock) {

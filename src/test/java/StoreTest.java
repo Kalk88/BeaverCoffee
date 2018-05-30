@@ -53,6 +53,7 @@ public class StoreTest {
         }
     }
 
+
     @Test
     public void print_orders() {
         final Query<Store> query = dataStore.createQuery(Store.class);
@@ -60,12 +61,15 @@ public class StoreTest {
         stores.forEach(System.out::println);
     }
 
+
+
     @Test
     public void db_should_retrieve_a_list_of_stores() {
         final Query<Store> query = dataStore.createQuery(Store.class);
         final List<Store> stores = query.asList();
         assertEquals(3, stores.size()); //expected then acutal
     }
+
 
     @Test
     public void dao_should_return_list_of_stores() {
@@ -96,7 +100,6 @@ public class StoreTest {
         }
     }
 
-
     @Test
     public void get_stock_by_store_id() {
         final StoreDao dao = new StoreDao(dataStore);
@@ -104,13 +107,32 @@ public class StoreTest {
         String storeId = "78970117-3715-4f91-8b4f-c4f3342f5a84";
         String stockId = "78970117-3715-4f91-8b4f-c4f3342f5a83";
         try {
-            final LinkedList<Stock> stock = controller.getStoreStock(storeId);
+            final List<Stock> stock = controller.getStoreStock(storeId);
             assertEquals(stockId, stock.get(0).getProductId());
             System.out.println(stock);
 
         } catch (StoreException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void get_stock_by_query_params() {
+        final StoreDao dao = new StoreDao(dataStore);
+        final StoreController controller = new StoreController(dao);
+        String storeID = "78970117-3715-4f91-8b4f-c4f3342f5a84";
+        String productIDs = "78970117-3715-4f91-8b4f-c4f3342f5a83,78970117-3715-4f91-8b4f-c4f3342f5a82";
+        String fromBad = "2018-05-18T10:57+02:00"; //1526633863
+        String from = "2018-05-18T02:00+02:00"; // 1526608800
+        String to = "2018-05-27T20:06+02:00"; //1527451560
+
+        final List<Stock> stock = controller.getStockByQueryParams(storeID, from, to, productIDs );
+
+        //Amount of products returned
+        assertEquals(2, stock.size());
+
+        System.out.println("Stock id: " + stock + "\n" + "Amount of stock found: " + stock.size());
+
     }
 
 

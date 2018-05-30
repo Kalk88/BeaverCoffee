@@ -1,8 +1,11 @@
 package app.store;
 
 
+import app.order.Order;
+
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class StoreController {
     private StoreDao dao;
@@ -24,11 +27,16 @@ public class StoreController {
     }
 
 
-    public LinkedList<Stock> getStoreStock(String storeID) throws StoreException {
+    public List<Stock> getStoreStock(String storeID) throws StoreException {
         try{
             return dao.getStoreStock(storeID);
         } catch(IndexOutOfBoundsException e) {
             throw new StoreException("Can not find stock in store with that id");
         }
     }
+
+    public List<Stock> getStockByQueryParams(String id,  String from, String to, String productIDs) {
+        return dao.getStockFromQueryParams(id, from, to, productIDs);
+    }
+
 }

@@ -144,5 +144,22 @@ public class Application {
                 return e.getMessage();
             }
         });
+
+        //Stock reports
+        get("api/stores/:id/stock/reports", (req, res) -> {
+            try {
+                res.header("content-type", "application/json");
+                if (req.queryMap() != null){
+                    return new Gson().toJson(storeController.getStockByQueryParams(req.params("id"),
+                            req.params("from"), req.params("to"), req.params("productIDs")));
+                } else {
+                    return "Error retrieving stock";
+                }
+            } catch (Exception e) {
+                res.status(400);
+                e.printStackTrace();
+                return "Error retrieving stock";
+            }
+        });
     }
 }

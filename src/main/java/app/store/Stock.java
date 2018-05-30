@@ -8,7 +8,7 @@ public class Stock {
     private String productId;
     private double quantity;
 
-    private Stock(){
+    public Stock(){
 
     }
 
