@@ -1,0 +1,4 @@
+[
+{"id":"78970117-3715-4f91-8b4f-c4f3342f5a83","stock":[{"productId":"78970117-3715-4f91-8b4f-c4f3342f5a83","quantity":"20"},{"productId":"78970117-3715-4f91-8b4f-c4f3342f5a81","quantity":"8"}],"timestamp":1526633863},
+{"id":"78970117-3715-4f91-8b4f-c4f3342f5a84","stock":[{"productId":"78970117-3715-4f91-8b4f-c4f3342f5a83","quantity":"15"},{"productId":"78970117-3715-4f91-8b4f-c4f3342f5a82","quantity":"2"}],"timestamp":1526688000}
+]
