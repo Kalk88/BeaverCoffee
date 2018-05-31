@@ -1,3 +1,4 @@
+import app.order.Order;
 import app.store.*;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -7,10 +8,12 @@ import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
+import test_data.dummy_data.OrderDummy;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -24,6 +27,7 @@ public class StoreTest {
 
     @Before
     public void setup() {
+        System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "WARN");
         morphia = new Morphia();
         final MongoClient client = new MongoClient();
         morphia.mapPackage("com.babayaga.beavercoffee.store"); // Can be called several times with diffrent packages if needed
@@ -44,7 +48,7 @@ public class StoreTest {
             e.printStackTrace();
         }
 
-        try (Stream<String> stream = Files.lines(Paths.get("src/test/java/test_data/orders.txt"))) {
+        try (Stream<String> stream = Files.lines(Paths.get("src/test/java/test_data/store_orders.txt"))) {
             MongoCollection<Document> collection = client.getDatabase("beaverDB").getCollection("orders");
             stream.map(Document::parse)
                     .forEach(collection::insertOne);
@@ -132,7 +136,51 @@ public class StoreTest {
         assertEquals(2, stock.size());
 
         System.out.println("Stock id: " + stock + "\n" + "Amount of stock found: " + stock.size());
+    }
 
+
+    @Test
+    public void get_orders_by_query_params() {
+
+        String storeID = "69999998-3715-4f91-8b4f-c4f3342f5a83";
+        String productIDs = "12345678-3715-4f91-8b4f-c4f3342f5a83,78970117-3715-4f91-8b4f-c4f3342f5a82";
+        int from = 1526633860; // 1526608800
+        int to = 1526688002; //1527451560
+
+        String products[] = productIDs.split(",");
+        final List<Order> orders = dataStore.createQuery(Order.class)
+                .field("storeID")
+                .contains(storeID)
+                .filter("timestamp >", from)
+                .filter("timestamp <", to)
+                .field("products.productID")
+                .hasAnyOf(Arrays.asList(products)).asList();
+
+        for(Order order : orders) {
+            System.out.println("///////////Order number: " + order);
+        }
+
+        assertEquals(2, orders.size());
+    }
+
+    @Test
+    public void get_orders_by_query_params_from_controller() {
+
+        final StoreDao dao = new StoreDao(dataStore);
+        final StoreController controller = new StoreController(dao);
+
+        String storeID = "69999998-3715-4f91-8b4f-c4f3342f5a83";
+        String productIDs = "12345678-3715-4f91-8b4f-c4f3342f5a83,78970117-3715-4f91-8b4f-c4f3342f5a82";
+        int from = 1526633860; // 1526608800
+        int to = 1526688002; //1527451560
+
+        List<Order> orders = controller.getOrdersByQueryParams(storeID, from, to, productIDs);
+
+        for(Order order : orders) {
+            System.out.println("///////////Order number: " + order);
+        }
+
+        assertEquals(2, orders.size());
     }
 
 

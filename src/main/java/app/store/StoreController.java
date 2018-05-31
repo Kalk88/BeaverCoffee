@@ -35,6 +35,10 @@ public class StoreController {
         }
     }
 
+    public List<Order> getOrdersByQueryParams(String id, int from, int to, String productIDs ) {
+        return dao.getOrdersFromQueryParams(id, from, to, productIDs);
+    }
+
     public List<Stock> getStockByQueryParams(String id,  String from, String to, String productIDs) {
         return dao.getStockFromQueryParams(id, from, to, productIDs);
     }

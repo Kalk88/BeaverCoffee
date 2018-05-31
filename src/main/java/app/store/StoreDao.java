@@ -1,5 +1,7 @@
 package app.store;
 
+import app.order.Order;
+import app.order.Status;
 import app.util.Utils;
 import com.google.gson.Gson;
 import org.mongodb.morphia.Datastore;
@@ -7,11 +9,7 @@ import org.mongodb.morphia.query.Query;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 public class StoreDao {
@@ -78,4 +76,18 @@ public class StoreDao {
         return logDate.after(fromDate) && logDate.before(toDate);
     }
 
+    public List<Order> getOrdersFromQueryParams(String id, int from, int to, String productIDs) {
+
+        String[] products = productIDs.split(",");
+
+        final List<Order> orders = datastore.createQuery(Order.class)
+                .field("storeID")
+                .contains(id)
+                .filter("timestamp >", from)
+                .filter("timestamp <", to)
+                .field("products.productID")
+                .hasAnyOf(Arrays.asList(products)).asList();
+
+        return orders;
+    }
 }
