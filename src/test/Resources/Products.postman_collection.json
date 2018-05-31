@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "f8cc7a73-f543-46d8-91d6-9cf7d398a43d",
+		"name": "Products",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"description": "",
+			"item": [
+				{
+					"name": "View Products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{HOST}}/products",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "Returns all products for sale.\n"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

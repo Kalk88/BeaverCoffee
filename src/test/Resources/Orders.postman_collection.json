@@ -1,0 +1,167 @@
+{
+	"info": {
+		"_postman_id": "112f649f-b2a5-47b9-967b-1b5aceb55b5e",
+		"name": "Orders",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Order",
+			"description": "",
+			"item": [
+				{
+					"name": "View Order",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "`12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{HOST}}/orders/927ff41e-4ec1-448b-b217-a69fa755328c",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"orders",
+								"927ff41e-4ec1-448b-b217-a69fa755328c"
+							]
+						},
+						"description": "Req 12, Fetches the data for order with the given id.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "`12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{HOST}}/orders/12345678-3715-4f91-8b4f-c4f3342f5a83",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"orders",
+								"12345678-3715-4f91-8b4f-c4f3342f5a83"
+							]
+						},
+						"description": "Updates for orders not in process are allowed. \n"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Order",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "`12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{HOST}}/orders/12345678-3715-4f91-8b4f-c4f3342f5a83",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"orders",
+								"12345678-3715-4f91-8b4f-c4f3342f5a83"
+							]
+						},
+						"description": "Req 3, Removal of orders not in process are allowed.\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "`12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"timestamp\": 1526633863,\n  \"discount\": \"%10\",\n  \"customer\": {\n    \"id\": \"78970117-3715-4f91-8b4f-c4f3342f5a83\",\n    \"clubmember\": {\n      \"id\": \"78970117-3715-4f91-8b4f-c4f3342f5a83\",\n      \"first\": \"Jens\",\n      \"last\": \"Conny\",\n      \"SSN\": \"098745028374\",\n      \"homeAdress\": [\n        {\n          \"street\": \"Gejiersgatan 10\",\n          \"zip\": \"215 12\",\n          \"city\": \"Malmö\",\n          \"country\": {\n            \"code\": \"SE\",\n            \"currency\": \"SEK\",\n            \"language\": \"SV\",\n            \"name\": \"Sverige\"\n          }\n        }\n      ],\n      \"occupation\": \"Youtube Influencer\",\n      \"cards\": [\n        {\n          \"numOfPurchases\": \"10\",\n          \"barcode\": \"12345678-3715-4f91-8b4f-c4f3342f5a83\",\n          \"validCountry\": {\n            \"code\": \"SE\",\n            \"name\": \"Sverige\"\n          }\n        }\n      ]\n    }\n  },\n  \"EmployeeID\": \"12345678-3715-4f91-8b4f-c4f3342f5a83\",\n  \"storeID\": \"69999998-3715-4f91-8b4f-c4f3342f5a83\",\n  \"products\": [\n    {\n      \"quantity\": \"10\",\n      \"productID\": \"12345678-3715-4f91-8b4f-c4f3342f5a83\"\n    }\n  ],\n  \"status\": \"NotStarted\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/orders",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Add a new order to the database. Returns an orderID.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "View Orders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "`12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{HOST}}/orders",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Req 12, Fetch current orders not i process by default, may be queried by employee id and or status\n"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
