@@ -1,10 +1,6 @@
-package app.customer;
+package app.employee;
 
 import org.mongodb.morphia.annotations.Embedded;
-
-/**
- * This class models locale information.
- */
 
 @Embedded
 public class Country {

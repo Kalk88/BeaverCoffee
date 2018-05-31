@@ -1,5 +1,6 @@
-package app.customer;
+package app.employee;
 
+import app.customer.Country;
 import org.mongodb.morphia.annotations.Embedded;
 
 @Embedded
