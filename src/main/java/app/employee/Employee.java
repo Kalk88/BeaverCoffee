@@ -15,6 +15,11 @@ public class Employee {
     private String id;
     @Embedded
     private Details details;
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
     @Embedded
     private List<Comment> comments;
 

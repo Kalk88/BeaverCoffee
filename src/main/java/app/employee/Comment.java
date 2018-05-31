@@ -14,6 +14,10 @@ public class Comment {
     private String employerID;
     private String comment;
 
+    public String getComment() {
+        return comment;
+    }
+
     private Comment() {}
 
     @Override

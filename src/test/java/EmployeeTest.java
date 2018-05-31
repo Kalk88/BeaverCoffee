@@ -1,3 +1,4 @@
+import app.employee.CommentException;
 import app.employee.Employee;
 import app.employee.EmployeeController;
 import app.employee.EmployeeDao;
@@ -87,7 +88,11 @@ public class EmployeeTest {
         Employee employee = new Gson().fromJson(EmployeeDummy.updatedData, Employee.class);
         Employee updatedEmployee = employeeToBeUpdated.overwriteEmployee(employee);
         assertEquals(updatedEmployee.get_id(), employeeToBeUpdated.get_id());
-        dao.createEmployee(updatedEmployee);
+        try {
+            dao.createEmployee(updatedEmployee);
+        } catch (CommentException e) {
+            e.printStackTrace();
+        }
         assertEquals(2, datastore.getCollection(Employee.class).count());
     }
 
