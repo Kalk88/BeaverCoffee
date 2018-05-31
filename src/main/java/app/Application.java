@@ -5,6 +5,7 @@ import app.customer.CustomerDao;
 import app.customer.CustomerException;
 import app.employee.EmployeeController;
 import app.employee.EmployeeDao;
+import app.order.Order;
 import app.order.OrderController;
 import app.order.OrderDao;
 import app.product.ProductController;
@@ -69,7 +70,13 @@ public class Application {
         get("api/orders/:id", (req, res) -> {
             try {
                 res.header("content-type", "application/json");
-                return new Gson().toJson(orderController.getOrderById(req.params("id")));
+                Order order = orderController.getOrderById(req.params("id"));
+                if (order == null) {
+                    res.status(204);
+                    return "";
+                }
+                return new Gson().toJson(order, Order.class);
+
             } catch (Exception e) {
                 res.status(400);
                 return "Error retrieving order";
@@ -90,7 +97,7 @@ public class Application {
 
         put("api/orders/:id", (req, res) -> {
             try {
-                orderController.updateOrder(req.body());
+                orderController.updateOrder(req.body(), req.params("id"));
                 res.status(204);
                 return "";
             } catch (Exception e) {
@@ -102,7 +109,7 @@ public class Application {
 
         delete("api/orders/:id", (req, res) -> {
             try {
-                orderController.deleteOrder(req.body());
+                orderController.deleteOrder(req.params("id"));
                 res.status(204);
                 return "";
             } catch (Exception e) {
