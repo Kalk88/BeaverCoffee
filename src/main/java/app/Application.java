@@ -12,8 +12,15 @@ import app.product.ProductController;
 import app.product.ProductDao;
 import com.google.gson.Gson;
 import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import org.bson.Document;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 import static spark.Spark.*;
 
@@ -31,6 +38,46 @@ public class Application {
         morphia.mapPackage("com.babayaga.beavercoffee.customer");
         morphia.mapPackage("com.babayaga.beavercoffee.employee");
         Datastore dataStore = morphia.createDatastore(client, "beaverDB");
+
+        // Initilize and seed database. Ugliest shit I have ever made, but w/e.
+        dataStore.getDB().dropDatabase();
+        dataStore.ensureIndexes();
+
+        // Customer
+        try (Stream<String> stream = Files.lines(Paths.get("src/resources/seed_data/customers.txt"))) {
+            MongoCollection<Document> collection = client.getDatabase("beaverDB").getCollection("customers");
+            stream.map(Document::parse)
+                    .forEach(collection::insertOne);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Product
+        try (Stream<String> stream = Files.lines(Paths.get("src/resources/seed_data/products_eng.txt"))) {
+            MongoCollection<Document> collection = client.getDatabase("beaverDB").getCollection("products");
+            stream.map(Document::parse)
+                    .forEach(collection::insertOne);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Order
+        try (Stream<String> stream = Files.lines(Paths.get("src/resources/seed_data/orders.txt"))) {
+            MongoCollection<Document> collection = client.getDatabase("beaverDB").getCollection("orders");
+            stream.map(Document::parse)
+                    .forEach(collection::insertOne);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Employee
+        try (Stream<String> stream = Files.lines(Paths.get("src/resources/seed_data/employees.txt"))) {
+            MongoCollection<Document> collection = client.getDatabase("beaverDB").getCollection("employees");
+            stream.map(Document::parse)
+                    .forEach(collection::insertOne);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // init Controllers
         final ProductController productController = new ProductController(new ProductDao(dataStore));
