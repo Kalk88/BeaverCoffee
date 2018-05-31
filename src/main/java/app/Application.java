@@ -5,6 +5,7 @@ import app.customer.CustomerDao;
 import app.customer.CustomerException;
 import app.employee.EmployeeController;
 import app.employee.EmployeeDao;
+import app.order.Order;
 import app.order.OrderController;
 import app.order.OrderDao;
 import app.product.ProductController;
@@ -13,8 +14,6 @@ import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
-
-import java.util.logging.Logger;
 
 import static spark.Spark.*;
 
@@ -71,7 +70,13 @@ public class Application {
         get("api/orders/:id", (req, res) -> {
             try {
                 res.header("content-type", "application/json");
-                return new Gson().toJson(orderController.getOrderById(req.params("id")));
+                Order order = orderController.getOrderById(req.params("id"));
+                if (order == null) {
+                    res.status(204);
+                    return "";
+                }
+                return new Gson().toJson(order, Order.class);
+
             } catch (Exception e) {
                 res.status(400);
                 return "Error retrieving order";
@@ -81,7 +86,8 @@ public class Application {
         post("api/orders", (req, res) -> {
             try {
                 res.header("content-type", "application/json");
-                return new Gson().toJson(orderController.createOrder(req.body()));
+                String id = orderController.createOrder(req.body());
+                return String.format("{\"id\":\"%s\"}", id);
             } catch (Exception e) {
                 e.printStackTrace();
                 res.status(400);
@@ -91,7 +97,7 @@ public class Application {
 
         put("api/orders/:id", (req, res) -> {
             try {
-                orderController.updateOrder(req.body());
+                orderController.updateOrder(req.body(), req.params("id"));
                 res.status(204);
                 return "";
             } catch (Exception e) {
@@ -103,7 +109,7 @@ public class Application {
 
         delete("api/orders/:id", (req, res) -> {
             try {
-                orderController.deleteOrder(req.body());
+                orderController.deleteOrder(req.params("id"));
                 res.status(204);
                 return "";
             } catch (Exception e) {
@@ -137,7 +143,7 @@ public class Application {
         });
 
         //Customers
-        get("api/customers:id", (req, res) -> {
+        get("api/customers/:id", (req, res) -> {
             try {
                 res.header("content-type", "application/json");
                 return new Gson().toJson(customerController.getCustomer(req.params(":id")));
@@ -179,7 +185,8 @@ public class Application {
         post("api/employees", (req, res) -> {
             try {
                 res.header("content-type", "application/json");
-                return new Gson().toJson(employeeController.createEmployee(req.body()));
+                String id = employeeController.createEmployee(req.body());
+                return String.format("{\"id\":\"%s\"}", id);
             } catch (Exception e) {
                 e.printStackTrace();
                 res.status(400);

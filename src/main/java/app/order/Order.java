@@ -1,7 +1,12 @@
 package app.order;
 
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.*;
+import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Field;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Index;
+import org.mongodb.morphia.annotations.Indexes;
 
 import java.util.List;
 
@@ -43,37 +48,41 @@ public class Order {
 
     @Override
     public String toString() {
-        return id + " " + timestamp + " " + discount + " " + customer.toString() + " " + employeeID + " " + " " + storeID + " "
-                + " " + products.toString() + " " + status;
+        return String.format(
+                "%s %d %s %s %s %s %s %s",
+                id, timestamp, discount, customer.toString(),
+                employeeID, storeID, products.toString(), status);
     }
 
     /**
-     * Setter for ID
-     * @param id
+     * Setter for ID.
+     * @param id of order.
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * Getter for ID
-     * @return
+     * Getter for ID.
+     * @return String.
      */
-    public String getId() {return id; }
+    public String getId() {
+        return id;
+    }
 
     /**
-     * Getter for ObjectID
-     * @return
+     * Getter for ObjectID.
+     * @return String.
      */
     public ObjectId get_id() {
         return _id;
     }
 
     /**
-     * Setter for ObjectID
-     * @param _id
+     * Getter for Status of order.
+     * @return Status
      */
-    public void set_id(ObjectId _id) {
-        this._id = _id;
+    public Status getStatus() {
+        return status;
     }
 }

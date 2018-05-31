@@ -19,6 +19,6 @@ public class OrderCustomer {
 
     @Override
     public String toString() {
-        return id  + " " + clubmember.toString();
+        return String.format("%s %s", id, clubmember.toString());
     }
 }

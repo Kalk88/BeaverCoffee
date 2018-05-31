@@ -8,14 +8,8 @@ import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
-import org.mongodb.morphia.logging.LoggerFactory;
-import org.mongodb.morphia.logging.MorphiaLoggerFactory;
-import org.mongodb.morphia.logging.SilentLogger;
 import org.mongodb.morphia.query.Query;
 import test_data.dummy_data.CustomerDummy;
 
@@ -24,6 +18,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Stream;
+
+import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * These tests depends on a mongoDB instance running on localhost.

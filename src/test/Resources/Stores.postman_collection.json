@@ -1,0 +1,165 @@
+{
+	"info": {
+		"_postman_id": "96d235fe-4352-43bf-89c2-c3e7d57e7725",
+		"name": "Stores",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Stores",
+			"description": "",
+			"item": [
+				{
+					"name": "View Stores",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "`12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{HOST}}/stores",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"stores"
+							]
+						},
+						"description": "Req 12\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Store",
+			"description": "",
+			"item": [
+				{
+					"name": "View Store",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "`12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{HOST}}/stores/12345678-3715-4f91-8b4f-c4f3342f5a83",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"stores",
+								"12345678-3715-4f91-8b4f-c4f3342f5a83"
+							]
+						},
+						"description": "Req 12\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Store stock",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "`12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{HOST}}/stores/12345678-3715-4f91-8b4f-c4f3342f5a83",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"stores",
+								"12345678-3715-4f91-8b4f-c4f3342f5a83"
+							]
+						},
+						"description": "Returns the current stock for a  store\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Store Report",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "`12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{HOST}}/stores/12345678-3715-4f91-8b4f-c4f3342f5a83",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"stores",
+								"12345678-3715-4f91-8b4f-c4f3342f5a83"
+							]
+						},
+						"description": "Req 13.1, 13.2\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Stock Reports",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "`12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{HOST}}/stores/12345678-3715-4f91-8b4f-c4f3342f5a83",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"stores",
+								"12345678-3715-4f91-8b4f-c4f3342f5a83"
+							]
+						},
+						"description": "Req 13.4\n"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

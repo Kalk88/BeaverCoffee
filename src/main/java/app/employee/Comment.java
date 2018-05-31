@@ -17,7 +17,6 @@ public class Comment {
     public String getComment() {
         return comment;
     }
-
     private Comment() {}
 
     @Override
