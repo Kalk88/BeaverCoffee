@@ -79,7 +79,8 @@ public class Application {
         post("api/orders", (req, res) -> {
             try {
                 res.header("content-type", "application/json");
-                return new Gson().toJson(orderController.createOrder(req.body()));
+                String id = orderController.createOrder(req.body());
+                return String.format("{\"id\":\"%s\"}", id);
             } catch (Exception e) {
                 e.printStackTrace();
                 res.status(400);
@@ -177,7 +178,8 @@ public class Application {
         post("api/employees", (req, res) -> {
             try {
                 res.header("content-type", "application/json");
-                return new Gson().toJson(employeeController.createEmployee(req.body()));
+                String id = employeeController.createEmployee(req.body());
+                return String.format("{\"id\":\"%s\"}", id);
             } catch (Exception e) {
                 e.printStackTrace();
                 res.status(400);
