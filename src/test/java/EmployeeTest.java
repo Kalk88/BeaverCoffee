@@ -31,6 +31,7 @@ public class EmployeeTest {
 
     @Before
     public void setup() {
+        System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "WARN");
         morphia = new Morphia();
         client = new MongoClient();
         morphia.mapPackage("com.babayaga.beavercoffee.order");
