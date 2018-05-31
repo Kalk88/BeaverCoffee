@@ -1,6 +1,7 @@
 import app.order.Order;
 import app.order.OrderController;
 import app.order.OrderDao;
+import app.order.OrderException;
 import app.util.Utils;
 import com.google.gson.Gson;
 import com.mongodb.MongoClient;
@@ -180,7 +181,7 @@ public class OrderTest {
     }
 
     @Test
-    public void should_not_find_deleted_order() {
+    public void should_not_find_deleted_order() throws OrderException {
         final OrderDao dao = new OrderDao(datastore);
         final OrderController controller = new OrderController(dao);
         Order order = controller.getOrderById("78970117-3715-4f91-8b4f-c4f3342f5a84");

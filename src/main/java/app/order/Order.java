@@ -77,4 +77,12 @@ public class Order {
     public ObjectId get_id() {
         return _id;
     }
+
+    /**
+     * Getter for Status of order.
+     * @return Status
+     */
+    public Status getStatus() {
+        return status;
+    }
 }

@@ -31,18 +31,25 @@ public class OrderController {
         return uuid;
     }
 
-    public void updateOrder(String body) {
+    public void updateOrder(String body, String id) throws OrderException {
         Order order;
         order = new Gson().fromJson(body, Order.class);
+        if (id != order.getId()) {
+            throw new OrderException("OrderID mismatch.");
+        }
         Order orderToBeUpdated = getOrderById(order.getId());
+        if (orderToBeUpdated.getStatus() != Status.NotStarted) {
+            throw new OrderException("Can't update order, already in progress");
+        }
         Order updatedOrder = orderToBeUpdated.overwriteOrder(order);
         dao.insertOrder(updatedOrder);
     }
 
-    public void deleteOrder(String body) {
-        Order order;
-        order = new Gson().fromJson(body, Order.class);
-        Order orderToBeDeleted = getOrderById(order.getId());
+    public void deleteOrder(String id) throws OrderException {
+        Order orderToBeDeleted = getOrderById(id);
+        if (orderToBeDeleted.getStatus() != Status.NotStarted) {
+            throw new OrderException("May only delete orders that are not started");
+        }
         dao.deleteOrder(orderToBeDeleted);
     }
 }
