@@ -1,0 +1,14 @@
+{"id": "78970117-3715-4f91-8b4f-c4f3342f5a83", "name": {"EN":"Espresso Roast","US":"Espresso Roast","SE":"Rostad Espresso"}, "type": "Whole-Bean Coffee", "quantity": "1", "price": {"US":"10","GB":"11","SE":"9"}}
+{"id": "78970117-3715-4f91-8b4f-c4f3342f5a83", "name": {"EN":"Whole Bean French Roast","US":"Whole Bean French Roast","SE":"Franskrostad Böna"}, "type": "Whole-Bean Coffee", "quantity": "1","price": {"US":"10","GB":"11","SE":"9"}}
+{"id": "78970117-3715-4f91-8b4f-c4f3342f5a83", "name": {"EN":"Whole Bean Light Roast","SE":"Lättrostad Böna"}, "type": "Whole-Bean Coffee", "quantity": "1", "price": {"US":"10","GB":"11","SE":"9"}}
+{"id": "78970117-3715-4f91-8b4f-c4f3342f5a83", "name": {"EN":"Brewed Coffe","SE":"Bryggkaffe"}, "type": "Brewed", "quantity": "1", "price": {"US":"10","GB":"11","SE":"9"}}
+{"id": "78970117-3715-4f91-8b4f-c4f3342f5a83", "name": {"EN":"Espresso","SE":"Espresso"}, "type": "Brewed", "quantity": "1", "price": {"US":"10","GB":"11","SE":"9"}}
+{"id": "78970117-3715-4f91-8b4f-c4f3342f5a83", "name": {"EN":"Latte","SE":"Latte"}, "type": "Brewed", "quantity": "1", "price": {"US":"10","GB":"11","SE":"9"}}
+{"id": "78970117-3715-4f91-8b4f-c4f3342f5a83", "name": {"EN":"Capuccino","SE":"Capuccino"}, "type": "Brewed", "quantity": "1", "price": {"US":"10","GB":"11","SE":"9"}}
+{"id": "78970117-3715-4f91-8b4f-c4f3342f5a83", "name": {"EN":"Skim Milk","SE":"Lättmjölk"}, "type": "Steamed Milk", "quantity": "1", "price": {"US":"10","GB":"11","SE":"9"}}
+{"id": "78970117-3715-4f91-8b4f-c4f3342f5a83", "name": {"EN":"Soy Milk","SE":"Sojamjölk"}, "type": "Steamed Milk", "quantity": "1", "price": {"US":"10","GB":"11","SE":"9"}}
+{"id": "78970117-3715-4f91-8b4f-c4f3342f5a83", "name": {"EN":"Whole Milk","SE":"Mjölk"}, "type": "Steamed Milk", "quantity": "1", "price": {"US":"10","GB":"11","SE":"9"}}
+{"id": "78970117-3715-4f91-8b4f-c4f3342f5a83", "name": {"EN":"2%Milk","SE":"2%Mjölk"}, "type": "Steamed Milk", "quantity": "1", "price": {"US":"10","GB":"11","SE":"9"}}
+{"id": "78970117-3715-4f91-8b4f-c4f3342f5a83", "name": {"EN":"Whipped Cream","SE":"Vispgrädde"}, "type": "Syrups", "quantity": "1", "price": {"US":"10","GB":"11","SE":"9"}}
+{"id": "78970117-3715-4f91-8b4f-c4f3342f5a83", "name": {"EN":"Vanilla","SE":"Vanilj"}, "type": "Syrups", "quantity": "1", "price": {"US":"10","GB":"11","SE":"9"}}
+{"id": "78970117-3715-4f91-8b4f-c4f3342f5a83", "name": {"EN":"Irish Cream","SE":"Irländsk Grädde"}, "type": "Syrups", "quantity": "1", "price": {"US":"10","GB":"11","SE":"9"}}
