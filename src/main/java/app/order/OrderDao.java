@@ -26,8 +26,12 @@ public class OrderDao {
         return order;
     }
 
-    public void createOrder(Order order) {
+    public void insertOrder(Order order) {
         datastore.save(order);
+    }
+
+    public void deleteOrder(Order order) {
+        datastore.delete(order);
     }
 
     public List<Order> getOrdersFromQueryParams(Map<String, String[]> params) {

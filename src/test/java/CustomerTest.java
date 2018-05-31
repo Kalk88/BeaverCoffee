@@ -2,22 +2,25 @@ import app.customer.Customer;
 import app.customer.CustomerController;
 import app.customer.CustomerDao;
 import app.customer.CustomerException;
+import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
+import test_data.dummy_data.CustomerDummy;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Stream;
+
+import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * These tests depends on a mongoDB instance running on localhost.
@@ -27,8 +30,10 @@ public class CustomerTest {
     private Morphia morphia;
     private Datastore dataStore;
 
+
     @Before
     public void setup() {
+        System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "WARN");
         morphia = new Morphia();
         final MongoClient client = new MongoClient();
         morphia.mapPackage("com.babayaga.beavercoffee.customer"); // Can be called several times with diffrent packages if needed.
@@ -71,6 +76,7 @@ public class CustomerTest {
         final CustomerDao dao = new CustomerDao(dataStore);
         final CustomerController controller = new CustomerController(dao);
         final List<Customer> customers = controller.getAllCustomers();
+        customers.forEach(System.out::println);
         assertEquals(9, customers.size());
     }
 
@@ -85,7 +91,6 @@ public class CustomerTest {
         } catch (CustomerException e) {
             e.printStackTrace();
         }
-
     }
 
     @Test
@@ -95,6 +100,32 @@ public class CustomerTest {
         assertThrows(CustomerException.class, () -> {
             final Customer customer = controller.getCustomer("66666666-6666-4f91-8b4f-c4f3342f5a83");
         });
+    }
+
+
+    @Test
+    public void new_customer_should_be_added() {
+        final CustomerDao dao = new CustomerDao(dataStore);
+        final CustomerController controller = new CustomerController(dao);
+        String id = controller.createCustomer(CustomerDummy.dummy_data);
+        assertNotNull(id);
+        Customer insertedCustomer = null;
+        try {
+            insertedCustomer = controller.getCustomer(id);
+
+        } catch (CustomerException e) {
+            e.printStackTrace();
+        }
+        assertEquals(id, insertedCustomer.getId());
+        assertTrue(insertedCustomer.invariant());
+    }
+
+    @Test
+    public void Customer_invariant_should_fail() {
+        final CustomerDao dao = new CustomerDao(dataStore);
+        final CustomerController controller = new CustomerController(dao);
+        Customer customer = new Gson().fromJson(CustomerDummy.dummy_fail_data, Customer.class);
+        assertFalse(customer.invariant());
     }
 
 }

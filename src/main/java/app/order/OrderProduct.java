@@ -11,6 +11,6 @@ public class OrderProduct {
 
     @Override
     public String toString() {
-        return productID + " " + quantity;
+        return String.format("%s %f", productID, quantity);
     }
 }

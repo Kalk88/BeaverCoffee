@@ -1,7 +1,9 @@
 import app.order.Order;
 import app.order.OrderController;
 import app.order.OrderDao;
+import app.order.OrderException;
 import app.util.Utils;
+import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class OrderTest {
     private Morphia morphia;
@@ -27,6 +30,7 @@ public class OrderTest {
 
     @Before
     public void setup() {
+        System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "WARN");
         morphia = new Morphia();
         client = new MongoClient();
         morphia.mapPackage("com.babayaga.beavercoffee.order");
@@ -75,15 +79,15 @@ public class OrderTest {
     @Test
     public void get_orders_from_specific_zip() {
         final Query<Order> query = datastore.createQuery(Order.class);
-        final List<Order> orders = query.filter("customer.clubmember.homeAdress.zip", "911 1337").asList();
-        assertEquals(2, orders.size());
+        final List<Order> orders = query.filter("customer.clubmember.homeAdress.zip", "60647").asList();
+        assertEquals(1, orders.size());
     }
 
     @Test
     public void get_orders_from_specific_occupation() {
         final Query<Order> query = datastore.createQuery(Order.class);
         final List<Order> orders = query.filter("customer.clubmember.occupation", "Youtube Influencer").asList();
-        assertEquals(4, orders.size());
+        assertEquals(2, orders.size());
     }
 
     @Test
@@ -144,7 +148,7 @@ public class OrderTest {
         Order order = OrderDummy.GetDummyOrder();
         datastore.save(order);
         final Query<Order> query = datastore.createQuery(Order.class);
-        final List<Order> orders = query.filter("id", "78970117-3715-4f91-8b4f").asList();
+        final List<Order> orders = query.filter("id", "78970117-7812-4f91-8b4f-c4f3342f5a83").asList();
         assertEquals(1, orders.size());
     }
 
@@ -155,6 +159,60 @@ public class OrderTest {
         controller.createOrder(OrderDummy.data);
         assertEquals(5, datastore.getCollection(Order.class).count());
     }
+
+    @Test
+    public void should_update_order_with_new_values() {
+        final OrderDao dao = new OrderDao(datastore);
+        final OrderController controller = new OrderController(dao);
+        Order orderToBeUpdated = controller.getOrderById("78970117-3715-4f91-8b4f-c4f3342f5a84");
+        Order order = new Gson().fromJson(OrderDummy.updatedData, Order.class);
+        Order updatedOrder = orderToBeUpdated.overwriteOrder(order);
+        assertEquals(updatedOrder.get_id(), orderToBeUpdated.get_id());
+        dao.insertOrder(updatedOrder);
+        assertEquals(4, datastore.getCollection(Order.class).count());
+    }
+
+    @Test
+    public void should_delete_not_started_order() {
+        final OrderDao dao = new OrderDao(datastore);
+        final OrderController controller = new OrderController(dao);
+        Order orderToBeDeleted = controller.getOrderById("78970117-3715-4f91-8b4f-c4f3342f5a84");
+        try {
+            controller.deleteOrder(orderToBeDeleted.getId());
+        } catch (OrderException e) {
+            e.printStackTrace();
+        } finally {
+            assertEquals(3, datastore.getCollection(Order.class).count());
+        }
+    }
+
+    @Test
+    public void should_not_delete_started_or_finished_order() {
+        final OrderDao dao = new OrderDao(datastore);
+        final OrderController controller = new OrderController(dao);
+        assertThrows(OrderException.class, () -> {
+            controller.deleteOrder("78970117-3715-4f91-8b4f-c4f3342f5a83");
+        });
+    }
+
+    @Test
+    public void should_not_delete_finished_order() {
+        final OrderDao dao = new OrderDao(datastore);
+        final OrderController controller = new OrderController(dao);
+        assertThrows(OrderException.class, () -> {
+            controller.deleteOrder("78970117-3715-4f91-8b4f-c4f3342f5a82");
+        });
+    }
+
+    @Test
+    public void should_not_delete_pending_order() {
+        final OrderDao dao = new OrderDao(datastore);
+        final OrderController controller = new OrderController(dao);
+        assertThrows(OrderException.class, () -> {
+            controller.deleteOrder("78970117-3715-4f91-8b4f-c4f3342f5a81");
+        });
+    }
+
 
     // Random tests for the purpose of utility methods and such.
     @Test

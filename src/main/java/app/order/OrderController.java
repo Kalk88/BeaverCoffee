@@ -2,7 +2,6 @@ package app.order;
 
 import app.util.Utils;
 import com.google.gson.Gson;
-
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +27,29 @@ public class OrderController {
         order = new Gson().fromJson(body, Order.class);
         String uuid = Utils.getUUIDString();
         order.setId(uuid);
-        dao.createOrder(order);
+        dao.insertOrder(order);
         return uuid;
+    }
+
+    public void updateOrder(String body, String id) throws OrderException {
+        Order order;
+        order = new Gson().fromJson(body, Order.class);
+        if (id != order.getId()) {
+            throw new OrderException("OrderID mismatch.");
+        }
+        Order orderToBeUpdated = getOrderById(order.getId());
+        if (orderToBeUpdated.getStatus() != Status.NotStarted) {
+            throw new OrderException("Can't update order, already in progress");
+        }
+        Order updatedOrder = orderToBeUpdated.overwriteOrder(order);
+        dao.insertOrder(updatedOrder);
+    }
+
+    public void deleteOrder(String id) throws OrderException {
+        Order orderToBeDeleted = getOrderById(id);
+        if (orderToBeDeleted.getStatus() != Status.NotStarted) {
+            throw new OrderException("May only delete orders that are not started");
+        }
+        dao.deleteOrder(orderToBeDeleted);
     }
 }

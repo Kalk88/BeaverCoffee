@@ -2,7 +2,7 @@ FORMAT: 1A
 HOST: http://localhost:8080/api/
 
 # BeaverCoffee
-Specification of the available routes of the BeaverCoffe data store.
+Specification on the available routes and operations of the BeaverCoffe web service.
 
 # Group Orders
 ## Order [/orders/{id}]
@@ -10,7 +10,7 @@ Specification of the available routes of the BeaverCoffe data store.
  - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
 
 ### View Order [GET]
-Req 12, Fetches the data for order with the given id.
+Fetches the data for order with the given id.
 + Request
     + Headers
 
@@ -21,7 +21,7 @@ Req 12, Fetches the data for order with the given id.
     + Attributes(Order)
 
 ### Update Order [PUT]
-Req 12, Updates for orders not in process are allowed
+Updates order with the given id. Updating pending or finished are not allowed and will return 400.
 + Request (application/json)
   + Headers
 
@@ -31,8 +31,10 @@ Req 12, Updates for orders not in process are allowed
 
 + Response 204
 
++ Response 400
+
 ### Remove Order [DELETE]
-Req 3, Removal of orders not in process are allowed
+Deletes the order with the given id. Deliting orders pending or finsihed orders is not allowed and will return 400.
 + Request
     + Headers
 
@@ -42,20 +44,20 @@ Req 3, Removal of orders not in process are allowed
 
 ## Orders [/orders{?employeeID,status,from,to}]
 ### Create Order [POST]
-Req 12, Creates a new order
+Add a new order to the database. Returns an orderID.
 + Request (application/json)
   + Headers
 
-                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
+                Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
 
-    + Attributes(Order)
+    + Attributes(BaseOrder)
 
 + Response 201 (application/json)
     + Attributes
         - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string)
 
 ### View Orders [GET]
-Req 12, Fetch current orders not i process by default, may be queried by employee id and or status
+Fetch current orders not i process by default. May be queried by status, employee id, or time period.
 + Parameters
     - status: pending, inprocess, finished (enum, optional) - one of pending, inprocess, finished
     - employeeID: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, optional)
@@ -85,7 +87,7 @@ Returns all products for sale.
  - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
 
 ### View Employee [GET]
-Req 9
+Returns information about an employee with the given id.
 + Request
     + Headers
 
@@ -96,7 +98,7 @@ Req 9
     + Attributes(Employee)
 
 ### Update Employee [PUT]
-Req 9
+Updates information about the employee with the given id.
 + Request (application/json)
 
     + Attributes(Employee)
@@ -104,6 +106,7 @@ Req 9
 + Response 204
 
 ## Employee Reports [GET /employees/{id}/reports{?from,to}]
+Req 13.5
 + Parameters
     - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
     - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
@@ -122,7 +125,7 @@ Req 9
 
 ## Employees [/employees]
 ### Create Employee [POST]
-Req 12
+Adds a new Employee to the web service.
 + Request (application/json)
     + Headers
 
@@ -135,7 +138,7 @@ Req 12
         - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string)
 
 ### View Employees [GET]
-Req 12
+Returns a list with all employees.
 + Request
     + Headers
 
@@ -145,39 +148,23 @@ Req 12
 
     + Attributes(array[Employee])
 
-
-## Employees [GET /employees/reports{?from,to}]
-+ Parameters
-    - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
-    - to: `2018-04-28T20:06+02:00` (string, optional) - To time period
-
-+ Request
-    + Headers
-
-                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
-
-+ Response 200 (application/json)
-
-    + Attributes
-        - report: katastrof
-
 # Group Customers
 ## Customers [/customers]
 ### Create Customer [POST]
-Req 12, Branch manager and pleb employee Used when adding club member
+Adds a new customer to the web service.
 + Request (application/json)
     + Headers
 
                  Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
 
-    + Attributes(Customer)
+    + Attributes(BaseCustomer)
 
 + Response 201 (application/json)
      + Attributes
         - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string)
 
 ### View Customers [GET]
-Req 12
+Returns a list of all coustomers.
 + Request
     + Headers
 
@@ -187,26 +174,11 @@ Req 12
 
     + Attributes(array[Customer])
 
-## Customer Reports [GET /customers/reports{?postalcode,occupation,from,to}]
-+ Parameters
-    - postalcode: 212 13 (string, optional)
-    - occupation: youtube influencer (string, optional)
-    - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
-    - to: `2018-04-28T20:06+02:00` (string, optional) - To time period
-
-+ Request
-    + Headers
-
-                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
-
-+ Response 200 (application/json)
-
-    + Attributes
 
 # Group Stores
 ## Stores [/stores]
 ### View Stores [GET]
-Req 12
+Returns information about stores.
 + Request
     + Headers
 
@@ -217,6 +189,7 @@ Req 12
     + Attributes(array[Store])
 
 ## Store [/stores/{id}]
+Returns information about the store with the given id.
 + Parameters
  - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
 
@@ -232,7 +205,7 @@ Req 12
     + Attributes(Store)
 
 ## Store stock [GET /stores/{id}/stock]
-Returns the current stock for a  store
+Returns stock for a  store.
 + Parameters
  - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
 
@@ -247,6 +220,7 @@ Returns the current stock for a  store
     + Attributes(array[StockExample])
 
 ## Store Report [GET /stores/{id}/reports{?from,to,productIDs}]
+Req 13.1, 13.2
 + Parameters
     - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
     - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
@@ -265,6 +239,7 @@ Returns the current stock for a  store
         - store data: blalba
 
 ## Stock Reports [GET /stores/{id}/stock/reports{?from,to,productIDs}]
+Req 13.4
 + Parameters
     - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
     - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
@@ -282,7 +257,7 @@ Returns the current stock for a  store
         - store data: blalba
 
 # Group Authorization
-Req 12, Returns an array of roles and a token for auth in other routes
+Not implemented
 ## Authenticate [POST /authorization]
 + Request (applcation/json)
 
@@ -305,9 +280,9 @@ Req 12, Returns an array of roles and a token for auth in other routes
  - roles: Cashier, Store Manager, Branch Manager, Corporate Sales (array)
 
 ## Adress (object)
- - street: Bogdan Street 10 (string, required)
- - zip: 911 1337 (string, required)
- - city: Coimbra (string, required)
+ - street: Gejiersgatan 10 (string, required)
+ - zip: 215 12 (string, required)
+ - city: Malmö (string, required)
  - country
   - include Country
 
@@ -334,17 +309,21 @@ Req 12, Returns an array of roles and a token for auth in other routes
  - cards (array[Card]) 
 
 ## Card
- - freepurchases: 10 
+ - numOfPurchases: 10 
  - barcode:`12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required) - UUID v4
  - validCountry
     - code: SE
     - name: Sverige
 
+## BaseCustomer
+ - clubmember
+  - include ClubMember
+   
 
 ## Customer
  - include UUID
- - clubmember
-  - include ClubMember
+ - include BaseCustomer
+ 
 
 ## EmploymentHistory
  - postion: Beanmaker (string)
@@ -355,7 +334,7 @@ Req 12, Returns an array of roles and a token for auth in other routes
 ## BaseEmployee
 - details (object)
     - include Person
-    - phonenumbers(PhoneNumbers)
+    - phoneNumbers(PhoneNumbers)
  - employmentHistory (array[EmploymentHistory])
 
 ## Employee
@@ -403,8 +382,7 @@ Req 12, Returns an array of roles and a token for auth in other routes
   - include UUID
   - include BaseProduct
 
-## Order (object)
- - include UUID
+##BaseOrder 
  - include TimeStamp
  - discount: `%10` (optional) - Req 4
  - customer
@@ -413,6 +391,11 @@ Req 12, Returns an array of roles and a token for auth in other routes
  - storeID: `69999998-3715-4f91-8b4f-c4f3342f5a83` (string, required) - UUID v4
  - products (array[OrderdProducts])
  - status: pending, inprocess, finished (enum, required) - one of pending, inprocess, finished
+
+## Order (object)
+ - include UUID
+ - include BaseOrder
+ 
 
 ## TimeStamp
  - timestamp: 1526633863 (number) - Unix epoch timestamp
