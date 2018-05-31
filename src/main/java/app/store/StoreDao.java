@@ -42,7 +42,7 @@ public class StoreDao {
         Gson gson = new Gson();
         StockLog[] stockLogs = new StockLog[0];
         try {
-            stockLogs = gson.fromJson(new FileReader("/Users/kemkoi/Desktop/BeaverCoffee/src/test/java/test_data/stock_log.txt"), StockLog[].class);
+            stockLogs = gson.fromJson(new FileReader("src/test/java/test_data/stock_log.txt"), StockLog[].class);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
