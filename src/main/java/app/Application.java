@@ -136,7 +136,7 @@ public class Application {
         });
 
         //Customers
-        get("api/customers:id", (req, res) -> {
+        get("api/customers/:id", (req, res) -> {
             try {
                 res.header("content-type", "application/json");
                 return new Gson().toJson(customerController.getCustomer(req.params(":id")));
