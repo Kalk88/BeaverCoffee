@@ -331,7 +331,7 @@ public class Application {
         //Update Employee
         put("api/employees/:id", (req, res) -> {
             try {
-                employeeController.updateEmployee(req.body());
+                employeeController.updateEmployee(req.body(), req.params("id"));
                 res.status(204);
                 return "";
             } catch (Exception e) {

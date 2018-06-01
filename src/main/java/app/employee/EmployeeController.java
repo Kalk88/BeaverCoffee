@@ -28,10 +28,11 @@ public class EmployeeController {
 
     public List<Employee> getAllEmployees() {return dao.getAllEmployees();}
 
-    public void updateEmployee(String body) throws CommentException {
+    public void updateEmployee(String body, String id) throws CommentException {
         Employee employee;
         employee = new Gson().fromJson(body, Employee.class);
-        Employee employeeToBeUpdated = getEmployeeById(employee.getId());
+        Employee employeeToBeUpdated = getEmployeeById(id);
+        employee.setId(id);
         Employee updatedEmployee = employeeToBeUpdated.overwriteEmployee(employee);
         dao.createEmployee(updatedEmployee);
     }
