@@ -213,9 +213,7 @@ public class Application {
         get("api/stores/:id/reports", (req, res) -> {
             try {
                 res.header("content-type", "application/json");
-                return new Gson().toJson(storeController.getOrdersByQueryParams(req.params("id"),
-                        Integer.parseInt(req.params("from")), Integer.parseInt(req.params("to")),
-                        req.params("productIDs")));
+                return new Gson().toJson(storeController.getOrdersByQueryParams(req.params("id") ,req.queryMap().toMap()));
             } catch (Exception e) {
                 res.status(400);
                 e.printStackTrace();
