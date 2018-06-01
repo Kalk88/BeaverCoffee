@@ -218,24 +218,7 @@ Returns a sales report for the given store, may be queried by timeperiod and a a
 + Response 200 (application/json)
 
     + Attributes
-        - store data: blalba
-
-## Stock Reports [GET /stores/{id}/stock/reports{?from,to,productIDs}]
-Returns an example of how a stock report could look.
-+ Parameters
-    - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
-    - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
-    - to: `2018-04-28T20:06+02:00` (string, optional) - To time period
-    - productIDs: `12345678-3715-4f91-8b4f-c4f3342f5a83`, `12345678-3715-4f91-8b4f-c4f3342f5a83` (array, optional)
-
-+ Request
-    + Headers
-
-                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
-
-+ Response 200 (application/json)
-
-    + Attributes
+        - Orders sold by that store.
 
 # Group Authorization
 Not implemented
