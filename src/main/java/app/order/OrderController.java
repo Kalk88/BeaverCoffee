@@ -34,15 +34,13 @@ public class OrderController {
     public void updateOrder(String body, String id) throws OrderException {
         Order order;
         order = new Gson().fromJson(body, Order.class);
-        if (id != order.getId()) {
-            throw new OrderException("OrderID mismatch.");
-        }
-        Order orderToBeUpdated = getOrderById(order.getId());
+        Order orderToBeUpdated = getOrderById(id);
         if (orderToBeUpdated.getStatus() != Status.NotStarted) {
             throw new OrderException("Can't update order, already in progress");
         }
-        Order updatedOrder = orderToBeUpdated.overwriteOrder(order);
-        dao.insertOrder(updatedOrder);
+        order.setId(id);
+        orderToBeUpdated = orderToBeUpdated.overwriteOrder(order);
+        dao.insertOrder(orderToBeUpdated);
     }
 
     public void deleteOrder(String id) throws OrderException {
