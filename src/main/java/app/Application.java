@@ -92,15 +92,6 @@ public class Application {
             e.printStackTrace();
         }
 
-        /*
-        try (Stream<String> stream = Files.lines(Paths.get("src/resources/seed_data/store_orders.txt"))) {
-            MongoCollection<Document> collection = client.getDatabase("beaverDB").getCollection("stores");
-            stream.map(Document::parse)
-                    .forEach(collection::insertOne);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
         // init Controllers
         final ProductController productController = new ProductController(new ProductDao(dataStore));
         final OrderController orderController = new OrderController(new OrderDao(dataStore));
