@@ -105,24 +105,6 @@ Updates information about the employee with the given id.
 
 + Response 204
 
-## Employee Reports [GET /employees/{id}/reports{?from,to}]
-Req 13.5
-+ Parameters
-    - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
-    - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
-    - to: `2018-04-28T20:06+02:00` (string, optional) - To time period
-
-+ Request
-    + Headers
-
-                 Authorization: `12345678-3715-4f91-8b4f-c4f3342f5a83` - Token from auth route
-
-+ Response 200 (application/json)
-
-    + Attributes
-        - report : abmalmba
-
-
 ## Employees [/employees]
 ### Create Employee [POST]
 Adds a new Employee to the web service.
@@ -189,12 +171,12 @@ Returns information about stores.
     + Attributes(array[Store])
 
 ## Store [/stores/{id}]
-Returns information about the store with the given id.
+
 + Parameters
  - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
 
 ### View Store [GET]
-Req 12
+Returns information about the store with the given id.
 + Request
     + Headers
 
@@ -204,8 +186,8 @@ Req 12
 
     + Attributes(Store)
 
-## Store stock [GET /stores/{id}/stock]
-Returns stock for a  store.
+## Store Stock [GET /stores/{id}/stock]
+Returns stock for a  store with the given id.
 + Parameters
  - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
 
@@ -220,7 +202,7 @@ Returns stock for a  store.
     + Attributes(array[StockExample])
 
 ## Store Report [GET /stores/{id}/reports{?from,to,productIDs}]
-Req 13.1, 13.2
+Returns a sales report for the given store, may be queried by timeperiod and a and a comma separated list. 
 + Parameters
     - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
     - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
@@ -239,7 +221,7 @@ Req 13.1, 13.2
         - store data: blalba
 
 ## Stock Reports [GET /stores/{id}/stock/reports{?from,to,productIDs}]
-Req 13.4
+Returns an example of how a stock report could look.
 + Parameters
     - id: `12345678-3715-4f91-8b4f-c4f3342f5a83` (string, required)
     - from: `2018-04-27T20:06+02:00` (string, optional) - From time period
@@ -254,7 +236,6 @@ Req 13.4
 + Response 200 (application/json)
 
     + Attributes
-        - store data: blalba
 
 # Group Authorization
 Not implemented
