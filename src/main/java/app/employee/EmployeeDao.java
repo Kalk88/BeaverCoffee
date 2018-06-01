@@ -34,10 +34,12 @@ public class EmployeeDao {
     }
 
     public void createEmployee(Employee employee) throws CommentException {
-        for (Comment comment : employee.getComments()){
-            if (comment.getComment().length() > 300){
-                employee.getComments().remove(comment);
-                throw new CommentException("Comment exceeds 300 characters");
+        if (employee.getComments() != null) {
+            for (Comment comment : employee.getComments()) {
+                if (comment.getComment().length() > 300) {
+                    employee.getComments().remove(comment);
+                    throw new CommentException("Comment exceeds 300 characters");
+                }
             }
         }
         datastore.save(employee);
