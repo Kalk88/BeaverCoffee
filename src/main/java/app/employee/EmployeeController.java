@@ -17,7 +17,7 @@ public class EmployeeController {
         return dao.getEmployeeById(id);
     }
 
-    public String createEmployee(String body) {
+    public String createEmployee(String body) throws CommentException {
         Employee employee;
         employee = new Gson().fromJson(body, Employee.class);
         String uuid = Utils.getUUIDString();
@@ -28,7 +28,7 @@ public class EmployeeController {
 
     public List<Employee> getAllEmployees() {return dao.getAllEmployees();}
 
-    public void updateEmployee(String body) {
+    public void updateEmployee(String body) throws CommentException {
         Employee employee;
         employee = new Gson().fromJson(body, Employee.class);
         Employee employeeToBeUpdated = getEmployeeById(employee.getId());

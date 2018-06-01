@@ -1,6 +1,8 @@
 package app.employee;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Id;
 
 /**
  * Created by ep on 2018-05-22.
@@ -12,6 +14,9 @@ public class Comment {
     private String employerID;
     private String comment;
 
+    public String getComment() {
+        return comment;
+    }
     private Comment() {}
 
     @Override

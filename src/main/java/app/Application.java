@@ -10,6 +10,9 @@ import app.order.OrderController;
 import app.order.OrderDao;
 import app.product.ProductController;
 import app.product.ProductDao;
+import app.store.StoreController;
+import app.store.StoreDao;
+import app.store.StoreException;
 import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -37,6 +40,7 @@ public class Application {
         morphia.mapPackage("com.babayaga.beavercoffee.order");
         morphia.mapPackage("com.babayaga.beavercoffee.customer");
         morphia.mapPackage("com.babayaga.beavercoffee.employee");
+        morphia.mapPackage("com.babayaga.beavercoffee.store");
         Datastore dataStore = morphia.createDatastore(client, "beaverDB");
 
         // Initilize and seed database. Ugliest shit I have ever made, but w/e.
@@ -83,6 +87,7 @@ public class Application {
         final ProductController productController = new ProductController(new ProductDao(dataStore));
         final OrderController orderController = new OrderController(new OrderDao(dataStore));
         final CustomerController customerController = new CustomerController(new CustomerDao(dataStore));
+        final StoreController storeController = new StoreController(new StoreDao(dataStore));
         final EmployeeController employeeController = new EmployeeController(new EmployeeDao(dataStore));
 
         // ROUTES
@@ -177,6 +182,7 @@ public class Application {
             }
         });
 
+
         post("api/customers", (req, res) -> {
             try {
                 res.header("content-type", "application/json");
@@ -200,6 +206,70 @@ public class Application {
             }
         });
 
+        //Stores
+        get("api/stores", (req, res) -> {
+            try {
+                res.header("content-type", "application/json");
+                return new Gson().toJson(storeController.getAllStores());
+            } catch (Exception e) {
+                res.status(400);
+                return "Error retrieving customers";
+            }
+        });
+
+        //Store
+        get("api/stores/:id", (req, res) -> {
+            try {
+                res.header("content-type", "application/json");
+                return new Gson().toJson(storeController.getStore(req.params(":id")));
+            } catch (StoreException e) {
+                res.status(400);
+                return e.getMessage();
+            }
+        });
+
+        //Store
+        get("api/stores/:id/stock", (req, res) -> {
+            try {
+                res.header("content-type", "application/json");
+                return new Gson().toJson(storeController.getStoreStock(req.params(":id")));
+            } catch (StoreException e) {
+                res.status(400);
+                return e.getMessage();
+            }
+        });
+
+        //Stock reports
+        get("api/stores/:id/stock/reports", (req, res) -> {
+            try {
+                res.header("content-type", "application/json");
+                if (req.queryMap() != null){
+                    return new Gson().toJson(storeController.getStockByQueryParams(req.params("id"),
+                            req.params("from"), req.params("to"), req.params("productIDs")));
+                } else {
+                    return "Error retrieving stock";
+                }
+            } catch (Exception e) {
+                res.status(400);
+                e.printStackTrace();
+                return "Error retrieving stock";
+            }
+        });
+                  
+        // Get all orders within some time
+        get("api/stores/:id/reports", (req, res) -> {
+            try {
+                res.header("content-type", "application/json");
+                return new Gson().toJson(storeController.getOrdersByQueryParams(req.params("id"),
+                        Integer.parseInt(req.params("from")), Integer.parseInt(req.params("to")),
+                        req.params("productIDs")));
+            } catch (Exception e) {
+                res.status(400);
+                e.printStackTrace();
+                return "Error retrieving orders";
+            }
+        });
+      
         //Employee
         // Get employee with specific ID
         get("api/employees/:id", (req, res) -> {

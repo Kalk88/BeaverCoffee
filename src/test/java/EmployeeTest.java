@@ -1,6 +1,8 @@
+import app.employee.CommentException;
 import app.employee.Employee;
 import app.employee.EmployeeController;
 import app.employee.EmployeeDao;
+import app.order.Order;
 import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -12,7 +14,9 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
 import test_data.dummy_data.EmployeeDummy;
+import test_data.dummy_data.OrderDummy;
 
+import static org.junit.Assert.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -84,7 +88,11 @@ public class EmployeeTest {
         Employee employee = new Gson().fromJson(EmployeeDummy.updatedData, Employee.class);
         Employee updatedEmployee = employeeToBeUpdated.overwriteEmployee(employee);
         assertEquals(updatedEmployee.get_id(), employeeToBeUpdated.get_id());
-        dao.createEmployee(updatedEmployee);
+        try {
+            dao.createEmployee(updatedEmployee);
+        } catch (CommentException e) {
+            e.printStackTrace();
+        }
         assertEquals(2, datastore.getCollection(Employee.class).count());
     }
 
