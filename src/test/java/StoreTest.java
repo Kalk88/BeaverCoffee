@@ -13,9 +13,7 @@ import test_data.dummy_data.OrderDummy;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
@@ -171,16 +169,20 @@ public class StoreTest {
 
         String storeID = "69999998-3715-4f91-8b4f-c4f3342f5a83";
         String productIDs = "12345678-3715-4f91-8b4f-c4f3342f5a83,78970117-3715-4f91-8b4f-c4f3342f5a82";
-        int from = 1526633860; // 1526608800
-        int to = 1526688002; //1527451560
+        String from = "2016-04-27T20:06+02:00"; // "+" (if sent via postman) --> %2B
+        String to = "2019-04-27T20:06+02:00"; //
+        Map<String, String[]> map = new HashMap<>();
+        map.put("productIDs", new String[] {productIDs});
+        map.put("from", new String[] {from});
+        map.put("to", new String[] {to});
 
-        List<Order> orders = controller.getOrdersByQueryParams(storeID, from, to, productIDs);
+        List<Order> orders = controller.getOrdersByQueryParams(storeID, map);
 
         for(Order order : orders) {
             System.out.println("///////////Order number: " + order);
         }
 
-        assertEquals(2, orders.size());
+        assertEquals(3, orders.size());
     }
 
 
