@@ -76,18 +76,47 @@ public class StoreDao {
         return logDate.after(fromDate) && logDate.before(toDate);
     }
 
-    public List<Order> getOrdersFromQueryParams(String id, int from, int to, String productIDs) {
+    public List<Order> getOrdersFromQueryParams(String id ,Map<String, String[]> queryParams) {
 
-        String[] products = productIDs.split(",");
+        final Query<Order> query = datastore.createQuery(Order.class);
 
-        final List<Order> orders = datastore.createQuery(Order.class)
-                .field("storeID")
-                .contains(id)
-                .filter("timestamp >", from)
-                .filter("timestamp <", to)
-                .field("products.productID")
-                .hasAnyOf(Arrays.asList(products)).asList();
+        query.filter("storeID", id);
 
-        return orders;
+        queryParams.forEach((k, v) -> {
+            switch(k) {
+                case "from": addFromTimestampToQuery(query, v);
+                    break;
+                case "to": addToTimestampToQuery(query, v);
+                    break;
+                case "productIDs": addProductIDs(query, v);
+                    break;
+            }
+        });
+
+        return query.asList();
+    }
+
+    private Query<Order> addToTimestampToQuery(Query<Order> query, String[] v) {
+        for (String item : v) {
+            query.filter("timestamp <=", Utils.getUnixTimestampFromDateString(item));
+        }
+
+        return query;
+    }
+
+    private Query<Order> addFromTimestampToQuery(Query<Order> query, String[] params) {
+        for (String item : params) {
+            query.filter("timestamp >=", Utils.getUnixTimestampFromDateString(item));
+        }
+
+        return query;
+    }
+
+    private Query<Order> addProductIDs(Query<Order> query, String[] params) {
+
+            String[] products = params[0].split(",");
+            query.field("products.productID").hasAnyOf(Arrays.asList(products));
+
+            return query;
     }
 }
